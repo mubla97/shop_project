@@ -19,7 +19,7 @@ const NavUser = () => {
                             Shoppex
                         </Nav.Link>
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/search">Search</Nav.Link>
+                        <Nav.Link href="/search">Searcher</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
                 <div className="navbar-nav ms-auto pe-md-5 navbar-nav">
