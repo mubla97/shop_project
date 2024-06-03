@@ -1,0 +1,56 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    image: backend/app
+    working_dir: /var/www/
+    volumes:
+      - ./backend:/var/www
+    ports:
+      - "8080:80"
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - db
+
+  # Servicio para el frontend de React
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:80"
+    depends_on:
+      - db
+      - backend
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: "no"
+    ports:
+      - 8081:80
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: db
+
+  db:
+    restart: "no"
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'shop_base'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'root'
+    volumes:
+      - mysql:/var/lib/mysql
+    ports:
+      - "3317:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+            
+volumes:
+  mysql:
+    driver: local
+
