@@ -47,7 +47,10 @@ const Register = () => {
         password: password,
         password_confirmation: password_confirmation,
         phone: phone,
-      }).then(() => {
+      }, {
+        withCredentials: true,
+      })
+      .then(() => {
         window.location = "/login";
       })
         .catch((err) => {
