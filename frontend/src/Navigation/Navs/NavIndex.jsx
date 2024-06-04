@@ -3,12 +3,12 @@ import { Navbar, Nav } from 'react-bootstrap';
 
 const NavIndex = () => {
   return (
-    <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="sm" variant="dark" style={{ backgroundColor: 'green' }}>
       <div className="container-fluid">
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav>
-            <Nav.Link href="/">
+            <Nav.Link href="/" style={{ fontWeight: 'bold', color: 'white' }}>
               Shoppex
             </Nav.Link>
             <Nav.Link href="/">Home</Nav.Link>

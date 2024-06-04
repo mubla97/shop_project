@@ -26,7 +26,7 @@ const Register = () => {
   const doRegister = async (e) => {
     e.preventDefault();
 
-    if (password != password2) {
+    if (password !== password2) {
       return alert('The two passwords are different');
     }
 

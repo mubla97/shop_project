@@ -10,17 +10,20 @@ const NavAdmin = () => {
     }
 
     return (
-        <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="sm" variant="dark" style={{ backgroundColor: 'green' }}>
             <div className="container-fluid ml-5">
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="Navbar">
                     <Nav>
-                        <Nav.Link href="/">
+                        <Nav.Link href="/" style={{ fontWeight: 'bold', color: 'white' }}>
                             Shoppex
                         </Nav.Link>
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/search">Search</Nav.Link>
                         <Nav.Link href="/users">Users</Nav.Link>
+                        <Nav.Link href="/shops">Shops</Nav.Link>
+                        <Nav.Link href="/products">Products</Nav.Link>
+                        <Nav.Link href="/orders">orders</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
                 <div className="navbar-nav ms-auto pe-md-5 navbar-nav">
