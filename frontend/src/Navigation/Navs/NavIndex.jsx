@@ -19,7 +19,7 @@ const NavIndex = () => {
         <div className="navbar-nav me-auto mb-2 mb-lg-0">
           <Navbar.Collapse id="responsive-navbar-Logg">
             <Nav>
-              <Nav.Link href="/signup" >Sign up</Nav.Link>
+              <Nav.Link href="/register" >Sign up</Nav.Link>
               <Nav.Link href="/login">Sign in</Nav.Link>
             </Nav>
           </Navbar.Collapse>

@@ -12,13 +12,6 @@ class AuthController extends Controller
      */
     public function index()
     {
-        // Comprobamos si el usuario ya está logado
-        //if (Auth::check()) {
-            // Si está logado le mostramos la vista de logados
-         //   return view('logados');
-       // }
-
-        // Si no está logado le mostramos la vista con el formulario de login
         return view('login');
     }
 
@@ -40,12 +33,9 @@ class AuthController extends Controller
         // Si el usuario existe lo logamos y devolvemos un token o una respuesta JSON
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            // Aquí podrías generar un token de acceso si estás usando una API basada en tokens (JWT, Passport, etc.)
-            // $token = $user->createToken('authToken')->accessToken;
-
+            
             return response()->json([
                 'message' => 'Logueado Correctamente',
-                // 'accessToken' => $token,
                 'user' => $user,
             ], 200);
         }
