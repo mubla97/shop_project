@@ -13,7 +13,7 @@ const Index = () => {
     } else {
       setUserLogged(false);
     }
-  }, [userLogged]); // Añade userLogged al array de dependencias
+  }, [userLogged]); 
 
   if (userLogged) {
     return <h1>Usuario logueado con éxito!</h1>;

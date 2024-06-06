@@ -7,6 +7,7 @@ import axios from 'axios';
 import Index from './Pages/Index';
 import Register from './Pages/Register';
 import Login from './Pages/Login';
+import Shop from './Pages/Shop';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
       <Route path="/" element={<Index />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/Shop" element={<Shop />} />
     </Routes>
   </div>
   );

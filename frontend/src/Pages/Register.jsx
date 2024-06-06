@@ -36,7 +36,7 @@ const Register = () => {
   const doRegister = async (e) => {
     e.preventDefault();
 
-    if (password != password_confirmation) {
+    if (password !== password_confirmation) {
       return alert('The two passwords are different');
     }
 
@@ -73,7 +73,7 @@ const Register = () => {
 
   return (
     <>
-      <div className="container h-100">
+      <div className="container h-100 mb-3">
         <hr />
         <div className="row d-flex align-items-center justify-content-center h-100">
           <div className="col-lg-12 col-xl-11">
