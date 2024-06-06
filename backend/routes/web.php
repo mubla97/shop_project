@@ -15,5 +15,5 @@ Route::get('/csrf-token', function () {
 });
 Route::get('/', [AuthController::class, 'index'])->name('home');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
 

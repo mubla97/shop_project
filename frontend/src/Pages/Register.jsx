@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import {MDBBtn,MDBContainer,MDBCard,MDBCardBody,MDBCardImage,MDBRow,MDBCol,MDBInput} from 'mdb-react-ui-kit';
 
 const Register = () => {
 
@@ -23,10 +22,21 @@ const Register = () => {
     return password !== null;
   }
 
+  useEffect(() => {
+    // Obtener y configurar el token CSRF al cargar la aplicación
+    axios.get('http://localhost:8080/sanctum/csrf-cookie', { withCredentials: true })
+      .then(() => {
+        console.log('Token CSRF obtenido');
+      })
+      .catch(error => {
+        console.error('Error al obtener el token CSRF:', error);
+      });
+  }, []);
+
   const doRegister = async (e) => {
     e.preventDefault();
 
-    if (password !== password_confirmation) {
+    if (password != password_confirmation) {
       return alert('The two passwords are different');
     }
 
@@ -50,54 +60,119 @@ const Register = () => {
       }, {
         withCredentials: true,
       })
-      .then(() => {
+      .then(response => {
+        console.log(response.data);
         window.location = "/login";
       })
-        .catch((err) => {
-          return alert("Error to register: " + err);
-        });
+      .catch(err => {
+        console.error(err);
+        alert("Error to register: " + err.message);
+      });
     }
   }
 
   return (
-<MDBContainer fluid className='bg-dark'>
-  <MDBRow className='d-flex justify-content-center align-items-center h-100'>
-    <MDBCol>
-      <MDBCard className='my-4'>
-        <MDBRow className='g-0'>
-          <MDBCol md='6' className="d-none d-md-block">
-            <MDBCardImage src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp' alt="Sample photo" className="rounded-start" fluid/>
-          </MDBCol>
-          <MDBCol md='6'>
-            <MDBCardBody className='text-black d-flex flex-column justify-content-center'>
-            <form onSubmit={doRegister}>
-              <h3 className="mb-5 text-uppercase fw-bold">Register</h3>
-              <MDBRow>
-                <MDBCol md='6'>
-                  <MDBInput wrapperClass='mb-4' label='Name' size='lg' id='form1' type='text' value={name} onChange={e => setName(e.target.value)}/>
-                </MDBCol>
-                <MDBCol md='6'>
-                  <MDBInput wrapperClass='mb-4' label='Last Name' size='lg' id='form2' type='text' value={lastname} onChange={e => setLastname(e.target.value)}/>
-                </MDBCol>
-              </MDBRow>
-              <MDBInput wrapperClass='mb-4' label='Username' size='lg' id='form4' type='text' value={username} onChange={e => setUsername(e.target.value)}/>
-              <MDBInput wrapperClass='mb-4' label='Email' size='lg' id='form4' type='text' value={email} onChange={e => setEmail(e.target.value)}/>
-              <MDBInput wrapperClass='mb-4' label='phone' size='lg' id='form5' type='number' value={phone} onChange={e => setPhone(e.target.value)}/>
-              <MDBInput wrapperClass='mb-4' label='password' size='lg' id='form6' type='pasword' value={password} onChange={e => setPassword(e.target.value)}/>
-              <MDBInput wrapperClass='mb-4' label='password confirmation' size='lg' id='form6' type='pasword' value={password_confirmation} onChange={e => setPassword_confirmation(e.target.value)}/>
-              <div className="d-flex justify-content-end pt-3">
-                <Link to="/"><button type="button" className="btn btn-light btn-lg btn-block">Go back</button></Link>
-                <MDBBtn className='ms-2' color='warning' size='lg'>Register</MDBBtn>
-              </div>
-            </form>
-            </MDBCardBody>
-          </MDBCol>
-        </MDBRow>
-      </MDBCard>
-    </MDBCol>
-  </MDBRow>
-</MDBContainer>
+    <>
+      <div className="container h-100">
+        <hr />
+        <div className="row d-flex align-items-center justify-content-center h-100">
+          <div className="col-lg-12 col-xl-11">
+            <div className="card text-black" >
+              <div className="card-body p-md-5">
+                <div className="row justify-content-center">
+                  <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
+                    <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Register</p>
+                    <form className="mx-1 mx-md-4" onSubmit={e => { doRegister(e) }}>
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div className="form-outline flex-fill mb-0">
+
+                          <label className="form-label" >Username</label>
+                          <input type="text" className="form-control" id="username" placeholder="Introduce your username..." value={username}
+                            onChange={e => setUsername(e.target.value)} required />
+                        </div>
+                      </div>
+
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div className="form-outline flex-fill mb-0">
+
+                          <label className="form-label" >Email</label>
+                          <input type="email" className="form-control" id="email" placeholder="Introduce your email..." value={email}
+                            onChange={e => setEmail(e.target.value)} required />
+                        </div>
+                      </div>
+
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div className="form-outline flex-fill mb-0">
+
+                          <label className="form-label" >Name</label>
+                          <input type="text" className="form-control" id="name" placeholder="Introduce your name..." value={name}
+                            onChange={e => setName(e.target.value)} required />
+                        </div>
+                      </div>
+
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div className="form-outline flex-fill mb-0">
+
+                          <label className="form-label" >Last name</label>
+                          <input type="text" className="form-control" id="lastname" placeholder="Introduce your firts last name..." value={lastname}
+                            onChange={e => setLastname(e.target.value)} required />
+                        </div>
+                      </div>
+
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div className="form-outline flex-fill mb-0">
+
+                          <label className="form-label" >Phone</label>
+                          <input type="number" className="form-control" id="phone" placeholder="Introduce your phone..." value={phone}
+                            onChange={e => setPhone(e.target.value)} required />
+                        </div>
+                      </div>
+
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
+                        <div className="form-outline flex-fill mb-0">
+
+                          <label className="form-label">Password</label>
+                          <input type="password" className="form-control" id="password" placeholder="Introduce your password..." value={password}
+                            onChange={e => setPassword(e.target.value)} required />
+                        </div>
+                      </div>
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
+                        <div className="form-outline flex-fill mb-0">
+
+                          <label className="form-label">Password confirmation</label>
+                          <input type="password" className="form-control" id="password_confirmation" placeholder="Repite your password..." value={password_confirmation}
+                            onChange={e => setPassword_confirmation(e.target.value)} required />
+                        </div>
+                      </div>
+                      <div className="d-flex justify-content-center mx-4 ">
+                        <button type="submit" id="signup" className="btn btn-primary btn-lg">Register</button>
+
+                        <div className="d-flex justify-content-center mx-4">
+                          <Link to="/"><button type="submit" className="btn btn-warning btn-lg">Go Back</button></Link>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+                  <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" className="img-fluid" alt="Sample img" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
