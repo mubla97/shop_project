@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,4 +17,5 @@ Route::get('/csrf-token', function () {
 Route::get('/', [AuthController::class, 'index'])->name('home');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [RegisterController::class, 'register']);
+Route::middleware('auth:sanctum')->post('/shop', [ShopController::class, 'store']);
 

@@ -14,6 +14,9 @@ class Shop extends Model
         'phone',
         'address',
         'job',
+        'postal_code',
+        'community',
+        'user_id',
     ];
 
     // Relation with user (1:N)

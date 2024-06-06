@@ -8,14 +8,6 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     /**
-     * Función que muestra la vista de logados o la vista con el formulario de Login.
-     */
-    public function index()
-    {
-        return view('login');
-    }
-
-    /**
      * Función que se encarga de recibir los datos del formulario de login, comprobar que el usuario existe y
      * en caso correcto logar al usuario.
      */
