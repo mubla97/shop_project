@@ -8,6 +8,7 @@ import Index from './Pages/Index';
 import Register from './Pages/Register';
 import Login from './Pages/Login';
 import Shop from './Pages/Shop';
+import ProtectedRoute from './Components/ProtectedRoute';
 
 function App() {
 
@@ -32,7 +33,9 @@ function App() {
       <Route path="/" element={<Index />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/Shop" element={<Shop />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path="/Shop" element={<Shop />} />
+      </Route>
     </Routes>
   </div>
   );
