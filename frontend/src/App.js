@@ -8,6 +8,8 @@ import Index from './Pages/Index';
 import Register from './Pages/Register';
 import Login from './Pages/Login';
 import Shop from './Pages/Shop';
+import Profile from './Pages/Profile/Profile';
+
 import ProtectedRoute from './Components/ProtectedRoute';
 
 function App() {
@@ -34,7 +36,8 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route element={<ProtectedRoute />}>
-        <Route path="/Shop" element={<Shop />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>
   </div>
