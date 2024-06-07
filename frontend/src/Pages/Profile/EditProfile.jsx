@@ -34,7 +34,7 @@ const EditProfile = () => {
                 withCredentials: true,
             }
         )
-        navigate("/profile")
+        
     }
 
     useEffect(() => {
