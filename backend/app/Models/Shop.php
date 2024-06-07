@@ -19,9 +19,9 @@ class Shop extends Model
         'user_id',
     ];
 
-    // Relation with user (1:N)
+    // Relation with user
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 }

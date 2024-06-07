@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -10,6 +10,7 @@ const Shop = () => {
   const [postal_code, setPostal_code] = useState('');
   const [job, setJob] = useState('');
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const autonomousCommunity = [
     "Andalucía", "Aragón", "Asturias", "Islas Baleares", "Canarias", 
@@ -17,6 +18,26 @@ const Shop = () => {
     "Extremadura", "Galicia", "Madrid", "Murcia", "Navarra", 
     "País Vasco", "La Rioja", "Comunidad Valenciana"
   ];
+
+  useEffect(() => {
+    const checkShop = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/hasShop', {
+          withCredentials: true,
+        });
+        if (response.data.hasShop) {
+          navigate('/myshop');
+        } else {
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error('Error fetching shop status:', error);
+        setLoading(false);
+      }
+    };
+
+    checkShop();
+  }, [navigate]);
 
   const doShop = async (e) => {
     e.preventDefault();
@@ -45,6 +66,10 @@ const Shop = () => {
     setCommunity(e.target.value);
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '10px', marginTop: '30px' }}>
       <h2>Create Shop</h2>
@@ -69,7 +94,7 @@ const Shop = () => {
         </div>
         <div style={{ marginBottom: '10px' }}>
           <label>Community:</label>
-          <select  id="community" name="community" value={community} onChange={handleChange}  required 
+          <select id="community" name="community" value={community} onChange={handleChange} required 
             style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }} >
 
             <option value="" disabled>Select a community</option>

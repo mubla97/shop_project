@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Shop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
@@ -32,5 +33,17 @@ class ShopController extends Controller
         ]);
 
         return response()->json(['message' => 'Shop created successfully', 'shop' => $shop], 201);
+    }
+
+    public function hasShop()
+    {
+        // Verificar si el usuario tiene una tienda
+        
+        /** @var \App\Models\User $user **/
+        $user = Auth::user();
+
+        $hasShop = $user->shop()->exists();
+
+        return response()->json(['hasShop' => $hasShop]);
     }
 }
