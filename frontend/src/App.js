@@ -9,6 +9,7 @@ import Register from './Pages/Register';
 import Login from './Pages/Login';
 import Shop from './Pages/Shop';
 import Profile from './Pages/Profile/Profile';
+import EditProfile from './Pages/Profile/EditProfile';
 
 import ProtectedRoute from './Components/ProtectedRoute';
 
@@ -38,6 +39,7 @@ function App() {
       <Route element={<ProtectedRoute />}>
         <Route path="/shop" element={<Shop />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/edit" element={<EditProfile />} />
       </Route>
     </Routes>
   </div>

@@ -22,4 +22,6 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::middleware('auth:sanctum')->post('/shop', [ShopController::class, 'store']);
 Route::middleware('auth:sanctum')->get('/hasShop', [ShopController::class, 'hasShop']);
 Route::middleware('auth:sanctum')->get('/profile', [ProfileController::class, 'getProfile']);
+Route::middleware('auth:sanctum')->put('/profile/edit', [ProfileController::class, 'update']);
+
 
