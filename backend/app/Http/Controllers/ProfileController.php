@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -89,5 +90,30 @@ class ProfileController extends Controller
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'oldPassword' => 'required',
+            'newPassword' => 'required|min:6',
+            'newPassword2' => 'required|same:newPassword',
+        ]);
+        
+        /** @var \App\Models\User $user **/
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        if (!Hash::check($request->oldPassword, $user->password)) {
+            return response()->json(['error' => 'Invalid old password'], 422);
+        }
+
+        $user->password = Hash::make($request->newPassword);
+        $user->save();
+
+        return response()->json(['message' => 'Password updated successfully'], 200);
     }
 }
