@@ -96,10 +96,10 @@ class ProfileController extends Controller
     {
         $request->validate([
             'oldPassword' => 'required',
-            'newPassword' => 'required|min:6',
+            'newPassword' => 'required|min:8',
             'newPassword2' => 'required|same:newPassword',
         ]);
-        
+
         /** @var \App\Models\User $user **/
         $user = Auth::user();
 
