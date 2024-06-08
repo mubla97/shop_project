@@ -62,4 +62,32 @@ class ProfileController extends Controller
        return response()->json(['error' => 'Unauthorized'], 401);
 
    }
+
+    // Método para eliminar un usuario
+    public function destroy()
+    {
+        /** @var \App\Models\User $user **/
+        $user = Auth::user();
+
+        if ($user) {
+            try {
+
+                if($user->shop()){
+                    $user->shop()->delete();
+                }
+
+                // Invalidar el token de autenticación actual del usuario (logout)
+                $user->tokens()->delete();
+
+                $user->delete();
+
+                return response()->json(['message' => 'User deleted successfully'], 200);
+
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'An error occurred while deleting the user.'. $e->getMessage()], 500);
+            }
+        }
+
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
 }

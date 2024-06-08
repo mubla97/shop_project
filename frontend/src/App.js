@@ -10,6 +10,7 @@ import Login from './Pages/Login';
 import Shop from './Pages/Shop';
 import Profile from './Pages/Profile/Profile';
 import EditProfile from './Pages/Profile/EditProfile';
+import Settings from './Pages/Profile/Settings';
 
 import ProtectedRoute from './Components/ProtectedRoute';
 
@@ -40,6 +41,7 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/edit" element={<EditProfile />} />
+        <Route path="/profile/settings" element={<Settings />} />
       </Route>
     </Routes>
   </div>

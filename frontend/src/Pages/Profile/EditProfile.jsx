@@ -33,8 +33,7 @@ const EditProfile = () => {
             {
                 withCredentials: true,
             }
-        )
-        
+        )       
     }
 
     useEffect(() => {
