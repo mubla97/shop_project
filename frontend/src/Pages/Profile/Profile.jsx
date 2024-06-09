@@ -11,6 +11,7 @@ const Profile = () => {
         name: null,
         lastname: null,
         phone: null,
+        avatar: null // Añadir el campo avatar
     });
     const [pageVis, setPageVis] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
@@ -30,12 +31,14 @@ const Profile = () => {
             withCredentials: true,
         })
         .then((res) => {
+            console.log(res.data);
             const userDetails = {
                 username: res.data.username,
                 name: res.data.name,
                 email: res.data.email,
                 lastname: res.data.lastname,
                 phone: res.data.phone,
+                avatar: res.data.avatar 
             };
 
             setUserData(userDetails);
@@ -75,8 +78,11 @@ const Profile = () => {
                             <MDBRow className="g-0">
                                 <MDBCol md="4" className="gradient-custom text-center text-white"
                                     style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}>
-                                    <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                                        alt="Avatar" className="my-5" style={{ width: '80px' }} fluid />
+                                        
+                                    {userData.avatar && <img src={`http://localhost:8080/storage/${userData.avatar}`} alt="Avatar" className="my-5" 
+                                        style={{ width: '80px' }} 
+                                        fluid />}
+                                    
                                     <MDBTypography tag="h5">{userData.name} {userData.lastname}</MDBTypography>
                                     <MDBCardText>@{userData.username}</MDBCardText>
                                     <MDBIcon far icon="edit mb-5" />
@@ -126,7 +132,7 @@ const Profile = () => {
                 </MDBRow>
             </MDBContainer>
         </>
-    )
+    );
 }
 
 export default Profile;

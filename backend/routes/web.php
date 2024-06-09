@@ -25,4 +25,6 @@ Route::middleware('auth:sanctum')->get('/profile', [ProfileController::class, 'g
 Route::middleware('auth:sanctum')->put('/profile/edit', [ProfileController::class, 'update']);
 Route::middleware('auth:sanctum')->put('/profile/password', [ProfileController::class, 'changePassword']);
 Route::middleware('auth:sanctum')->delete('/profile/delete', [ProfileController::class, 'destroy']);
+Route::middleware('auth:sanctum')->post('/profile/upload-avatar', [ProfileController::class, 'upload']);
+
 

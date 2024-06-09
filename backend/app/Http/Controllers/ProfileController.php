@@ -22,6 +22,7 @@ class ProfileController extends Controller
                'name' => $user->name,
                'lastname' => $user->lastname,
                'phone' => $user->phone,
+               'avatar' => $user->avatar
            ], 200);
        }
 
@@ -115,5 +116,30 @@ class ProfileController extends Controller
         $user->save();
 
         return response()->json(['message' => 'Password updated successfully'], 200);
+    }
+
+    public function upload(Request $request)
+    {
+        // Validar la solicitud
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validar que sea una imagen
+        ]);
+
+        // Obtener el archivo subido
+        $file = $request->file('avatar');
+
+        // Generar un nombre único para la imagen
+        $filename = 'avatar_' . Auth::id() . '.' . $file->getClientOriginalExtension();
+
+        // Guardar la imagen en el almacenamiento publico
+        $path = $file->storeAs('avatars', $filename, 'public');
+
+        // Guardar la ruta de la imagen en el perfil del usuario
+        /** @var \App\Models\User $user **/
+        $user = Auth::user();
+        $user->avatar = $path;
+        $user->save();
+
+        return response()->json(['message' => 'Imagen subida con éxito', 'path' => $path], 200);
     }
 }
