@@ -12,6 +12,7 @@ import Profile from './Pages/Profile/Profile';
 import EditProfile from './Pages/Profile/EditProfile';
 import Settings from './Pages/Profile/settings';
 import ChangePassword from './Pages/Profile/Password';
+import Avatar from './Pages/Profile/Avatar';
 
 import ProtectedRoute from './Components/ProtectedRoute';
 
@@ -44,6 +45,7 @@ function App() {
         <Route path="/profile/edit" element={<EditProfile />} />
         <Route path="/profile/settings" element={<Settings />} />
         <Route path="/profile/password" element={<ChangePassword />} />
+        <Route path="/profile/avatar" element={<Avatar />} />
       </Route>
     </Routes>
   </div>
