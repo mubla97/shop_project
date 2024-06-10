@@ -79,10 +79,13 @@ const Profile = () => {
                                 <MDBCol md="4" className="gradient-custom text-center text-white"
                                     style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}>
                                         
-                                    {userData.avatar && <img src={`http://localhost:8080/storage/${userData.avatar}`} alt="Avatar" className="my-5" 
-                                        style={{ width: '80px' }} 
-                                        fluid />}
-                                    
+                                        <MDBCardImage
+                                            src={userData.avatar ? `http://localhost:8080/storage/${userData.avatar}` : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"}
+                                            alt={userData.avatar ? "Avatar" : "Default Avatar"}
+                                            className="my-5"
+                                            style={{ width: '80px' }}
+                                            fluid
+                                        />
                                     <MDBTypography tag="h5">{userData.name} {userData.lastname}</MDBTypography>
                                     <MDBCardText>@{userData.username}</MDBCardText>
                                     <MDBIcon far icon="edit mb-5" />

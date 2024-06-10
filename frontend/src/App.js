@@ -10,7 +10,7 @@ import Login from './Pages/Login';
 import Shop from './Pages/Shop';
 import Profile from './Pages/Profile/Profile';
 import EditProfile from './Pages/Profile/EditProfile';
-import Settings from './Pages/Profile/settings';
+import Settings from './Pages/Profile/Settings';
 import ChangePassword from './Pages/Profile/Password';
 import Avatar from './Pages/Profile/Avatar';
 

@@ -7,6 +7,7 @@ const Settings = () => {
     const [username, setUsername] = useState();
     const [name, setName] = useState();
     const [lastname, setLastname] = useState();
+    const [avatar, setAvatar] = useState();
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
 
@@ -39,10 +40,11 @@ const Settings = () => {
     useEffect(() => {
         axios.get('http://localhost:8080/profile', { withCredentials: true })
             .then((response) => {
-                const { username, name, lastname } = response.data;
+                const { username, name, lastname, avatar } = response.data;
                 setUsername(username);
                 setName(name);
                 setLastname(lastname);
+                setAvatar(avatar);
             })
             .catch((error) => {
                 console.error('Error al obtener los datos del perfil:', error);
@@ -60,9 +62,11 @@ const Settings = () => {
             <div className="settings-card">
                 <div className="settings-card-header">
                     <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                        alt="Avatar"
-                        className="settings-avatar"
+                        src={avatar ? `http://localhost:8080/storage/${avatar}` : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"}
+                        alt={avatar ? "Avatar" : "Default Avatar"}
+                        className="my-5"
+                        style={{ width: '80px' }}
+                        fluid
                     />
                     <h5>{name} {lastname}</h5>
                     <p>@{username}</p>

@@ -47,8 +47,10 @@ COPY . /var/www
 COPY apache2.conf /etc/apache2/sites-available/000-default.conf
 
 # Install Laravel dependencies
-RUN composer install \
-    && chown -R www-data:www-data /var/www \
+RUN composer install
+
+# Set permissions
+RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www/storage
 
 # Expose port 80 and start Apache server

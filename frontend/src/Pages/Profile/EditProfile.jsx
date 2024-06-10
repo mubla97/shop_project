@@ -10,6 +10,7 @@ const EditProfile = () => {
     const [name, setName] = useState();
     const [lastname, setLastname] = useState();
     const [phone, setPhone] = useState();
+    const [avatar, setAvatar] = useState();
 
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate()
@@ -42,12 +43,13 @@ const EditProfile = () => {
             withCredentials: true,
         })
             .then((response) => {
-                const { username, email, name, lastname, phone } = response.data;
+                const { username, email, name, lastname, phone, avatar } = response.data;
                 setUsername(username);
                 setEmail(email);
                 setName(name);
                 setLastname(lastname);
                 setPhone(phone);
+                setAvatar(avatar);
             })
             .catch((error) => {
                 console.error('Error al obtener los datos del perfil:', error);
@@ -69,8 +71,13 @@ const EditProfile = () => {
                             <MDBRow className="g-0">
                                 <MDBCol md="4" className="gradient-custom text-center text-white"
                                     style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}>
-                                    <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                                        alt="Avatar" className="my-5" style={{ width: '80px' }} fluid />
+                                    <MDBCardImage
+                                            src={avatar ? `http://localhost:8080/storage/${avatar}` : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"}
+                                            alt={avatar ? "Avatar" : "Default Avatar"}
+                                            className="my-5"
+                                            style={{ width: '80px' }}
+                                            fluid
+                                        />
                                     <MDBTypography tag="h5"><button type="button" className="btn btn-warning" onClick={redirectToAvatar}> Change avatar</button></MDBTypography>
                                     <MDBIcon far icon="edit mb-5" />
                                 </MDBCol>
