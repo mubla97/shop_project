@@ -19,12 +19,17 @@ Route::get('/csrf-token', function () {
 Route::get('/', [AuthController::class, 'index'])->name('home');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [RegisterController::class, 'register']);
-Route::middleware('auth:sanctum')->post('/shop', [ShopController::class, 'store']);
-Route::middleware('auth:sanctum')->get('/hasShop', [ShopController::class, 'hasShop']);
-Route::middleware('auth:sanctum')->get('/profile', [ProfileController::class, 'getProfile']);
-Route::middleware('auth:sanctum')->put('/profile/edit', [ProfileController::class, 'update']);
-Route::middleware('auth:sanctum')->put('/profile/password', [ProfileController::class, 'changePassword']);
-Route::middleware('auth:sanctum')->delete('/profile/delete', [ProfileController::class, 'destroy']);
-Route::middleware('auth:sanctum')->post('/profile/upload-avatar', [ProfileController::class, 'upload']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/shop', [ShopController::class, 'store']);
+    Route::get('/hasShop', [ShopController::class, 'hasShop']);
+    Route::get('/profile', [ProfileController::class, 'getProfile']);
+    Route::put('/profile/edit', [ProfileController::class, 'update']);
+    Route::put('/profile/password', [ProfileController::class, 'changePassword']);
+    Route::delete('/profile/delete', [ProfileController::class, 'destroy']);
+    Route::post('/profile/upload-avatar', [ProfileController::class, 'upload']);
+    Route::get('/shop/{id}', [ShopController::class, 'show']);
+    Route::put('/shop/{id}', [ShopController::class, 'update']);
+});
 
 

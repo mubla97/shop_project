@@ -41,9 +41,59 @@ class ShopController extends Controller
         
         /** @var \App\Models\User $user **/
         $user = Auth::user();
-
+        
         $hasShop = $user->shop()->exists();
 
-        return response()->json(['hasShop' => $hasShop]);
+        if($hasShop){
+            $shop = $user->shop()->first();
+        }
+
+        return response()->json(['hasShop' => $hasShop, 'shopId' => $shop->id]);
     }
+
+    public function show($id)
+    {
+        try {
+            // Encuentra la tienda por ID
+            $shop = Shop::findOrFail($id); 
+
+            // Verificar si el usuario actual es el propietario de la tienda
+            if ($shop->user_id !== Auth::id()) {
+                return response()->json(['message' => 'Unauthorized'], 403);
+            }
+
+            return response()->json($shop, 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Shop not found'], 404);
+        }
+    }
+
+       // Actualizar los detalles de la tienda
+       public function update(Request $request, $id)
+       {
+           $validatedData = $request->validate([
+               'name' => 'required|string|max:255',
+               'phone' => 'required|string|max:20',
+               'address' => 'required|string|max:255',
+               'community' => 'required|string|max:255',
+               'postal_code' => 'required|string|max:10',
+               'job' => 'required|string|max:255',
+           ]);
+   
+           try {
+               $shop = Shop::findOrFail($id);
+   
+               // Verificar si el usuario actual es el propietario de la tienda
+               if ($shop->user_id !== Auth::id()) {
+                   return response()->json(['message' => 'Unauthorized'], 403);
+               }
+   
+               // Actualizar los detalles de la tienda con los datos validados
+               $shop->update($validatedData);
+   
+               return response()->json($shop, 200);
+           } catch (\Exception $e) {
+               return response()->json(['message' => 'Error updating shop', 'error' => $e->getMessage()], 500);
+           }
+       }
 }

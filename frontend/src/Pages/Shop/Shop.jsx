@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -26,7 +26,8 @@ const Shop = () => {
           withCredentials: true,
         });
         if (response.data.hasShop) {
-          navigate('/myshop');
+          console.log(response.data);
+          navigate(`/shop/${response.data.shopId}`);
         } else {
           setLoading(false);
         }
@@ -54,7 +55,7 @@ const Shop = () => {
     })
     .then(response => {
       console.log(response.data);
-      navigate("/");
+      navigate(`/`);
     })
     .catch(err => {
       console.error(err);

@@ -4,23 +4,6 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import axios from 'axios';
 
 const NavUser = () => {
-    const [hasShop, setHasShop] = useState(false);
-
-    useEffect(() => {
-        const fetchHasShop = async () => {
-            try {
-                const response = await axios.get('http://localhost:8080/hasShop', {
-                    withCredentials: true,
-                });
-
-                setHasShop(response.data.hasShop);
-            } catch (error) {
-                console.error('Error fetching shop status:', error);
-            }
-        };
-
-        fetchHasShop();
-    }, []);
 
     const doLogout = () => {
         localStorage.clear();
@@ -38,7 +21,7 @@ const NavUser = () => {
                         </Nav.Link>
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/search">Search</Nav.Link>
-                        <Nav.Link href={hasShop ? "/myshop" : "/shop"}>Shop</Nav.Link>
+                        <Nav.Link href="/shop">Shop</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
                 <div className="navbar-nav ms-auto pe-md-5 navbar-nav">

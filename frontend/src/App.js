@@ -7,7 +7,8 @@ import axios from 'axios';
 import Index from './Pages/Index';
 import Register from './Pages/Register';
 import Login from './Pages/Login';
-import Shop from './Pages/Shop';
+import Shop from './Pages/Shop/Shop';
+import EditShop from './Pages/Shop/EditShop';
 import Profile from './Pages/Profile/Profile';
 import EditProfile from './Pages/Profile/EditProfile';
 import Settings from './Pages/Profile/Settings';
@@ -41,6 +42,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/shop" element={<Shop />} />
+        <Route path="/shop/:shopId" element={<EditShop />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/edit" element={<EditProfile />} />
         <Route path="/profile/settings" element={<Settings />} />
