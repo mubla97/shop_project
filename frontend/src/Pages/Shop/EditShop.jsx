@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
 
 const EditShop = () => {
   const [name, setName] = useState('');
@@ -11,8 +12,10 @@ const EditShop = () => {
   const [job, setJob] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const { shopId } = useParams();
+
 
   const autonomousCommunity = [
     "Andalucía", "Aragón", "Asturias", "Islas Baleares", "Canarias", 
@@ -74,6 +77,22 @@ const EditShop = () => {
       setError("Error updating shop: " + (err.response?.data?.message || err.message));
       setLoading(false);
     }
+  };
+
+  const deleteShop = async () => {
+    try {
+      await axios.delete(`http://localhost:8080/shop/${shopId}`, {
+        withCredentials: true,
+      });
+      navigate("/shop");
+    } catch (err) {
+      console.error(err);
+      setError("Error deleting shop: " + (err.response?.data?.message || err.message));
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   if (loading) {
@@ -205,9 +224,24 @@ const EditShop = () => {
       <div style={{  maxWidth: '800px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '10px', marginTop: '30px' }}>
         <h2>Settings</h2>
         <button  type="button" className="btn btn-primary btn-lg" onClick={redirectToProducts} style={{ minWidth: '150px', padding: '8px', margin: '5px' }}> Products</button>
-        <button type="button" className="btn btn-danger btn-lg" style={{ minWidth: '150px', padding: '8px', margin: '5px' }}> Delete Shop</button>
+        <button type="button" className="btn btn-danger btn-lg" onClick={() => setShowModal(true)} style={{ minWidth: '150px', padding: '8px', margin: '5px' }}> Delete Shop</button>
       </div>
 
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Shop</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this shop?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={deleteShop}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    
     </>
   );
 };

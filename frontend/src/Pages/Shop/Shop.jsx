@@ -29,6 +29,7 @@ const Shop = () => {
           console.log(response.data);
           navigate(`/shop/${response.data.shopId}`);
         } else {
+          console.log('No existe una tienda');
           setLoading(false);
         }
       } catch (error) {
@@ -55,7 +56,7 @@ const Shop = () => {
     })
     .then(response => {
       console.log(response.data);
-      navigate(`/`);
+      navigate(`/shop`);
     })
     .catch(err => {
       console.error(err);

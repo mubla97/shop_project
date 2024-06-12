@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,9 +47,11 @@ class ShopController extends Controller
 
         if($hasShop){
             $shop = $user->shop()->first();
+
+            return response()->json(['hasShop' => $hasShop, 'shopId' => $shop->id]);
         }
 
-        return response()->json(['hasShop' => $hasShop, 'shopId' => $shop->id]);
+        return response()->json(['message' => 'No existe una tienda'], 200);
     }
 
     public function show($id)
@@ -96,4 +99,21 @@ class ShopController extends Controller
                return response()->json(['message' => 'Error updating shop', 'error' => $e->getMessage()], 500);
            }
        }
+
+       public function destroy(Shop $shop)
+    {
+        try {
+
+            // Eliminar todos los productos asociados a la tienda
+            Product::where('shop_id', $shop->id)->delete();
+
+            // Eliminar la tienda
+            $shop->delete();
+
+            return response()->json(['message' => 'Shop deleted successfully'], 200);
+        } catch (\Exception $e) {
+                       
+            return response()->json(['message' => 'Error deleting shop'], 500);
+        }
+    }
 }
