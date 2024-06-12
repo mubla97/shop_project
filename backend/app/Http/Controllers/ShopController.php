@@ -100,12 +100,14 @@ class ShopController extends Controller
            }
        }
 
-       public function destroy(Shop $shop)
+       public function destroy($id)
     {
         try {
+            
+            $shop = Shop::findOrFail($id);
 
             // Eliminar todos los productos asociados a la tienda
-            Product::where('shop_id', $shop->id)->delete();
+            Product::where('shop_id', $id)->delete();
 
             // Eliminar la tienda
             $shop->delete();
