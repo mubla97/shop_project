@@ -28,12 +28,12 @@ class DatabaseSeeder extends Seeder
              'password' => Hash::make(env('ADMIN_USER_PASS')),
          ]);
 
-          // Crear 10 usuarios, cada uno con una tienda y 10 productos.
+          // Create 10 users, each with a store and 10 products.
         User::factory(10)->create()->each(function ($user) {
-            // Crear una tienda para cada usuario
+            // Create a store for each user
             $shop = Shop::factory()->create(['user_id' => $user->id]);
 
-            // Crear 10 productos para cada tienda
+            // Create 10 products for each store
             Product::factory(10)->create(['shop_id' => $shop->id]);
         });
 
