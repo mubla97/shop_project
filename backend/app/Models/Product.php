@@ -14,6 +14,7 @@ class Product extends Model
         'description',
         'price',
         'quantity',
+        'shop_id'
     ];
 
     // Relation with shop (1:N)

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ShopController;
@@ -30,6 +31,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/profile/upload-avatar', [ProfileController::class, 'upload']);
     Route::get('/shop/{id}', [ShopController::class, 'show']);
     Route::put('/shop/{id}', [ShopController::class, 'update']);
+    Route::get('/shop/{shopId}/products', [ProductController::class, 'getProductsByShop']);
+    Route::delete('/shop/{shopId}/products/{productId}', [ProductController::class, 'deleteProduct']);
+    Route::post('/shop/{shopId}/products', [ProductController::class, 'store']);
+    Route::get('/shop/{shopId}/products/{productId}', [ProductController::class, 'show']);
+    Route::put('/shop/{shopId}/products/{productId}', [ProductController::class, 'update']);
+
 });
 
 

@@ -21,28 +21,34 @@ const EditShop = () => {
     "País Vasco", "La Rioja", "Comunidad Valenciana"
   ];
 
+  const redirectToProducts = () => {
+    navigate(`/shop/${shopId}/products`);
+  };
+
   useEffect(() => {
-    const fetchShopDetails = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/shop/${shopId}`, {
+        // Obtener los detalles de la tienda
+        const shopResponse = await axios.get(`http://localhost:8080/shop/${shopId}`, {
           withCredentials: true,
         });
-        const shopData = response.data;
+        const shopData = shopResponse.data;
         setName(shopData.name);
         setPhone(shopData.phone);
         setAddress(shopData.address);
         setCommunity(shopData.community);
         setPostal_code(shopData.postal_code);
         setJob(shopData.job);
+
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching shop details:', error);
-        setError('Error fetching shop details. Please try again.');
+        console.error('Error fetching data:', error);
+        setError('Error fetching data. Please try again.');
         setLoading(false);
       }
     };
 
-    fetchShopDetails();
+    fetchData();
   }, [shopId]);
 
   const updateShop = async (e) => {
@@ -62,7 +68,7 @@ const EditShop = () => {
         withCredentials: true,
       });
       console.log(response.data);
-      navigate("/");
+      navigate("/shop");
     } catch (err) {
       console.error(err);
       setError("Error updating shop: " + (err.response?.data?.message || err.message));
@@ -80,9 +86,9 @@ const EditShop = () => {
 
   return (
     <>
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '10px', marginTop: '30px' }}>
-      <h2>Edit Shop</h2>
-      <form onSubmit={updateShop}>
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '10px', marginTop: '30px' }}>
+        <h2>Edit Shop</h2>
+        <form onSubmit={updateShop}>
         <div style={{ marginBottom: '10px' }}>
           <label>Name:</label>
           <input 
@@ -190,14 +196,17 @@ const EditShop = () => {
             <option value="Music Store">Music Store</option>
           </select>
         </div>
-        <button 
-          type="submit" 
-          style={{ padding: '10px 20px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
-        >
+        <button type="submit" className="btn btn-success btn-lg">
           Save Changes
         </button>
-      </form>
-    </div>
+        </form>
+      </div>
+
+      <div style={{  maxWidth: '800px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '10px', marginTop: '30px' }}>
+        <h2>Settings</h2>
+        <button  type="button" className="btn btn-primary btn-lg" onClick={redirectToProducts} style={{ minWidth: '150px', padding: '8px', margin: '5px' }}> Products</button>
+        <button type="button" className="btn btn-danger btn-lg" style={{ minWidth: '150px', padding: '8px', margin: '5px' }}> Delete Shop</button>
+      </div>
 
     </>
   );

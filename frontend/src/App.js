@@ -14,6 +14,9 @@ import EditProfile from './Pages/Profile/EditProfile';
 import Settings from './Pages/Profile/Settings';
 import ChangePassword from './Pages/Profile/Password';
 import Avatar from './Pages/Profile/Avatar';
+import ProductsShop from './Pages/Shop/Products';
+import CreateProduct from './Pages/Shop/CreateProduct';
+import EditProduct from './Pages/Shop/EditProduct';
 
 import ProtectedRoute from './Components/ProtectedRoute';
 
@@ -43,6 +46,9 @@ function App() {
       <Route element={<ProtectedRoute />}>
         <Route path="/shop" element={<Shop />} />
         <Route path="/shop/:shopId" element={<EditShop />} />
+        <Route path="/shop/:shopId/products" element={<ProductsShop />} />
+        <Route path="/shop/:shopId/products/create" element={<CreateProduct />} />
+        <Route path="/shop/:shopId/products/:productId/edit" element={<EditProduct />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/edit" element={<EditProfile />} />
         <Route path="/profile/settings" element={<Settings />} />
