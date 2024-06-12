@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Product;
 use App\Models\Shop;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,18 +18,24 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        //SHOP SEEDERS
-        Shop::factory()->count(10)->create();
-
         //  USER SEEDERS
-        \App\Models\User::factory(10)->create();
+        User::factory(10)->create();
 
-        \App\Models\User::factory()->create([
+        User::factory()->create([
             'username' => 'administrador',
              'name' => 'Admin',
              'email' => 'admin@hotmail.com',
              'password' => Hash::make(env('ADMIN_USER_PASS')),
          ]);
+
+          // Crear 10 usuarios, cada uno con una tienda y 10 productos.
+        User::factory(10)->create()->each(function ($user) {
+            // Crear una tienda para cada usuario
+            $shop = Shop::factory()->create(['user_id' => $user->id]);
+
+            // Crear 10 productos para cada tienda
+            Product::factory(10)->create(['shop_id' => $shop->id]);
+        });
 
          
     }

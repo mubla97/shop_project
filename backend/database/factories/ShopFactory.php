@@ -29,7 +29,7 @@ class ShopFactory extends Factory
             'community' => $this->faker->randomElement(['Andalucía', 'Aragón', 'Asturias', 'Islas Baleares', 'Canarias', 'Cantabria', 'Castilla-La Mancha', 'Castilla y León', 'Cataluña', 'Extremadura', 'Galicia', 'Madrid', 'Murcia', 'Navarra', 'País Vasco', 'La Rioja', 'Comunidad Valenciana']),
             'postal_code' => $this->faker->postcode,
             'job' => $this->faker->randomElement(['Restaurant', 'Clothing Store', 'Supermarket', 'Cafeteria', 'Bookstore', 'Pharmacy', 'Hardware Store', 'Jewelry Store', 'Bakery', 'Flower Shop', 'Hair Salon', 'Beauty Salon', 'Electronics Store', 'Pet Store', 'Sporting Goods Store', 'Furniture Store', 'Mechanic Workshop', 'Toy Store', 'Pastry Shop', 'Ice Cream Shop', 'Tobacco Shop', 'Greengrocery', 'Shoe Store', 'Optics', 'Laundry', 'Photography Studio', 'Travel Agency', 'Stationery Store', 'Video Store', 'Music Store']),
-            'user_id' => User::factory()->create()->id,
+           // 'user_id' => User::factory()->create()->id,
         ];
     }
 }
