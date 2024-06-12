@@ -22,7 +22,6 @@ class ProductFactory extends Factory
             'description' => $this->faker->sentence,
             'price' => $this->faker->randomFloat(2, 1, 100),
             'quantity' => $this->faker->numberBetween(1, 100),
-           // 'shop_id' => Shop::factory()->create()->id,
         ];
     }
 }
