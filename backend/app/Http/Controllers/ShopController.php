@@ -71,6 +71,18 @@ class ShopController extends Controller
         }
     }
 
+    public function showPublic($id)
+    {
+        try {
+            // Encuentra la tienda por ID
+            $shop = Shop::findOrFail($id); 
+
+            return response()->json($shop, 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Shop not found'], 404);
+        }
+    }
+
        // Actualizar los detalles de la tienda
        public function update(Request $request, $id)
        {
@@ -117,5 +129,13 @@ class ShopController extends Controller
                        
             return response()->json(['message' => 'Error deleting shop'], 500);
         }
+    }
+
+    public function news()
+    {
+        // Obtener las últimas 10 tiendas
+        $shops = Shop::orderByDesc('id')->take(10)->get();
+
+        return response()->json($shops);
     }
 }

@@ -20,6 +20,7 @@ Route::get('/csrf-token', function () {
 Route::get('/', [AuthController::class, 'index'])->name('home');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [RegisterController::class, 'register']);
+Route::get('shop/news', [ShopController::class, 'news']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/shop', [ShopController::class, 'store']);
@@ -30,9 +31,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/profile/delete', [ProfileController::class, 'destroy']);
     Route::post('/profile/upload-avatar', [ProfileController::class, 'upload']);
     Route::get('/shop/{id}', [ShopController::class, 'show']);
+    Route::get('/shop/{id}/show', [ShopController::class, 'showPublic']);
     Route::put('/shop/{id}', [ShopController::class, 'update']);
     Route::delete('/shop/{id}', [ShopController::class, 'destroy'])->name('shop.destroy');
     Route::get('/shop/{shopId}/products', [ProductController::class, 'getProductsByShop']);
+    Route::get('/shop/{shopId}/products/show', [ProductController::class, 'getProductsByShopPublic']);
     Route::delete('/shop/{shopId}/products/{productId}', [ProductController::class, 'deleteProduct']);
     Route::post('/shop/{shopId}/products', [ProductController::class, 'store']);
     Route::get('/shop/{shopId}/products/{productId}', [ProductController::class, 'show']);

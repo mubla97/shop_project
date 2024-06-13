@@ -4,7 +4,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { useEffect } from 'react';
 import axios from 'axios';
 
-import Index from './Pages/Index';
+import Index from './Pages/Index/Index';
 import Register from './Pages/Register';
 import Login from './Pages/Login';
 import Shop from './Pages/Shop/Shop';
@@ -17,6 +17,7 @@ import Avatar from './Pages/Profile/Avatar';
 import ProductsShop from './Pages/Shop/Products';
 import CreateProduct from './Pages/Shop/CreateProduct';
 import EditProduct from './Pages/Shop/EditProduct';
+import ShopDetail from './Pages/Index/ShopDetail';
 
 import ProtectedRoute from './Components/ProtectedRoute';
 
@@ -54,6 +55,7 @@ function App() {
         <Route path="/profile/settings" element={<Settings />} />
         <Route path="/profile/password" element={<ChangePassword />} />
         <Route path="/profile/avatar" element={<Avatar />} />
+        <Route path="/shop/:shopId/show" element={<ShopDetail />} />
       </Route>
     </Routes>
   </div>

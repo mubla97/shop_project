@@ -3,12 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Shop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
     public function getProductsByShop($shopId)
+    {
+        try {
+            // Supongamos que tienes una relación de productos con la tienda en el modelo Product
+            $products = Product::where('shop_id', $shopId)->get();
+
+            $shop = Shop::findOrFail($shopId); 
+
+            // Verificar si el usuario actual es el propietario de la tienda
+            if ($shop->user_id !== Auth::id()) {
+                return response()->json(['message' => 'Unauthorized'], 403);
+            }
+
+            // Verificar si la tienda tiene productos
+            if ($products->isEmpty()) {
+                // Devuelve un mensaje indicando que no hay productos, pero con un código 200
+                return response()->json([
+                    'message' => 'No products found for this shop.',
+                    'products' => [] // Retorna un array vacío para la lista de productos
+                ], 200);
+            }
+
+            return response()->json($products, 200);
+        } catch (\Exception $e) {
+            // Manejar cualquier error que ocurra
+            return response()->json(['error' => 'An error occurred while fetching products.'], 500);
+        }
+    }
+
+    public function getProductsByShopPublic($shopId)
     {
         try {
             // Supongamos que tienes una relación de productos con la tienda en el modelo Product
