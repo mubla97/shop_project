@@ -18,6 +18,7 @@ import ProductsShop from './Pages/Shop/Products';
 import CreateProduct from './Pages/Shop/CreateProduct';
 import EditProduct from './Pages/Shop/EditProduct';
 import ShopDetail from './Pages/Index/ShopDetail';
+import Search from './Pages/Search';
 
 import ProtectedRoute from './Components/ProtectedRoute';
 
@@ -44,6 +45,7 @@ function App() {
       <Route path="/" element={<Index />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/search" element={<Search />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/shop" element={<Shop />} />
         <Route path="/shop/:shopId" element={<EditShop />} />

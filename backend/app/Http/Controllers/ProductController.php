@@ -159,4 +159,12 @@ class ProductController extends Controller
         // Devolver el producto actualizado en formato JSON
         return response()->json($product);
     }
+
+    public function all()
+    {
+        // Obtener todos los productos
+        $products = Product::orderBy('id', 'asc')->get();
+
+        return response()->json($products);
+    }
 }
