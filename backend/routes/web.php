@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\UserController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,7 @@ Route::get('shop/all', [ShopController::class, 'all']);
 Route::get('product/all', [ProductController::class, 'all']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user/roles', [UserController::class, 'getRoles']);
     Route::post('/shop', [ShopController::class, 'store']);
     Route::get('/hasShop', [ShopController::class, 'hasShop']);
     Route::get('/profile', [ProfileController::class, 'getProfile']);

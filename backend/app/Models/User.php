@@ -55,33 +55,15 @@ class User extends Authenticatable
         return $this->hasOne(Shop::class);
     }
 
-        // Relación con roles
-        public function roles()
-        {
-            return $this->belongsToMany(Role::class);
-        }
-    
-        // Método para asignar roles
-        public function assignRole($role)
-        {
-            return $this->roles()->sync($role);
-        }
-    
-        // Método para verificar si tiene un rol específico
-        public function hasRole($role)
-        {
-            return $this->roles()->where('name', $role)->exists();
-        }
-    
-        // Método para verificar si tiene alguno de los roles proporcionados
-        public function hasAnyRole($roles)
-        {
-            return $this->roles()->whereIn('name', $roles)->exists();
-        }
-    
-        // Método para verificar si tiene todos los roles proporcionados
-        public function hasAllRoles($roles)
-        {
-            return $this->roles()->whereIn('name', $roles)->count() == count($roles);
-        }
+      // Relación muchos a muchos con Role
+      public function roles()
+      {
+          return $this->belongsToMany(Role::class);
+      }
+  
+      // Método para comprobar si el usuario tiene un rol específico
+      public function hasRole($role)
+      {
+          return $this->roles->contains('name', $role);
+      }
 }
