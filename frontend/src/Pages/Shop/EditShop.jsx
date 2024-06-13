@@ -96,7 +96,7 @@ const EditShop = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <strong>Loading...</strong>;
   }
 
   if (error) {

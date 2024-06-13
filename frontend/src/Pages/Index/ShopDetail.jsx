@@ -45,7 +45,7 @@ const ShopDetail = () => {
   }, [shopId]);
 
   if (loadingShop || loadingProducts) {
-    return <p>Loading...</p>;
+    return <strong>Loading...</strong>
   }
 
   if (error) {
