@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Alert } from "react-bootstrap";
+import { Alert, Spinner } from "react-bootstrap"; 
 import axios from "axios";
 import News from "./News"; 
 import AllShops from "./AllShops";
@@ -8,7 +8,7 @@ const Index = () => {
     const [shops, setShops] = useState([]);
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null); // Nuevo estado para manejar errores
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         // Función interna para realizar las dos solicitudes axios de forma simultánea
@@ -34,9 +34,11 @@ const Index = () => {
 
     if (loading) {
         return (
-            <div className="container">
-                <div className="d-flex justify-content-center align-items-center mt-5">
-                    <strong>Loading...</strong>
+            <div className="mt-4">
+                <div className="text-center">
+                    <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                    </Spinner>
                 </div>
             </div>
         );

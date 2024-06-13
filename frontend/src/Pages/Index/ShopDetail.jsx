@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -44,19 +44,34 @@ const ShopDetail = () => {
     fetchProducts();
   }, [shopId]);
 
+  // Mostramos el spinner mientras se cargan los datos
   if (loadingShop || loadingProducts) {
-    return <strong>Loading...</strong>
+    return (
+        <div className="mt-4">
+            <div className="text-center">
+                <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
+        </div>
+    );
   }
 
+  // Mostramos el mensaje de error si ocurre algún problema en la carga de datos
   if (error) {
-    return <p>{error}</p>;
+    return (
+      <div className="container mt-4">
+        <p>{error}</p>
+      </div>
+    );
   }
 
+  // Mostramos los detalles de la tienda y los productos una vez que los datos están cargados
   return (
     <div className="container mt-4">
       <div className="card shadow-sm mb-4">
         <h5 className="card-header" style={{ backgroundColor: 'green', color: 'white' }}>Shop Information</h5>
-        <div className="card-body" >
+        <div className="card-body">
           <h5 className="card-title text-start">{shop.name}</h5>
           <p className="card-text text-start">
             <strong>Phone:</strong> {shop.phone}

@@ -3,6 +3,7 @@ import axios from "axios";
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 import { BsPencilSquare } from 'react-icons/bs';
 import { useNavigate } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
 
 const Profile = () => {
     const [userData, setUserData] = useState({
@@ -56,18 +57,25 @@ const Profile = () => {
     }, []);
 
     if (loading) {
-        return <strong>Loading...</strong>;
+        return (
+            <div className="mt-4">
+                <div className="text-center">
+                    <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                </div>
+            </div>
+        );
     }
 
     if (!userData.username) {
-        // Check if necessary user data is available
         return navigate('/login');
     }
 
     if (pageVis && errorMessage) {
         return (
             <div className="container mx-auto">
-                Esta página se recargará en 3 segundos, si tu navegador no se recarga de forma automática pulsa <a href="/login">Pulsa aquí</a>
+                This page will reload in 3 seconds, if your browser does not reload automatically press <a href="/login">here</a>
             </div>
         )
     }

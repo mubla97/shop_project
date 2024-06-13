@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useNavigate  } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { Spinner } from 'react-bootstrap';
 
 const EditProduct = () => {
   const { shopId, productId } = useParams();
@@ -18,7 +19,6 @@ const EditProduct = () => {
         const response = await axios.get(`http://localhost:8080/shop/${shopId}/products/${productId}`);
         const product = response.data;
         
-        // Establecer los valores iniciales en los estados
         setName(product.name);
         setDescription(product.description);
         setPrice(product.price);
@@ -36,10 +36,9 @@ const EditProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLoading(true); 
 
     try {
-      // Realizar la solicitud PUT para actualizar el producto
       const response = await axios.put(`http://localhost:8080/shop/${shopId}/products/${productId}`, {
         name,
         description,
@@ -49,7 +48,7 @@ const EditProduct = () => {
       }, {
         withCredentials: true
       });
-      console.log(response.data);
+
       navigate(`/shop/${shopId}/products`);
     } catch (error) {
       console.error('Error updating product:', error);
@@ -60,14 +59,21 @@ const EditProduct = () => {
   };
 
   if (loading) {
-    return <strong>Loading...</strong>;
+    return (
+        <div className="mt-4">
+            <div className="text-center">
+                <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
+        </div>
+    );
   }
 
   if (error) {
     return <div>{error}</div>;
   }
 
-  // Renderizar el formulario de edición del producto
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '10px', marginTop: '30px' }}>
       <h2>Edit Product</h2>

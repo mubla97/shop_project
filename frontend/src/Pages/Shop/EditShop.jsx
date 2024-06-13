@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Spinner } from "react-bootstrap";
 
 const EditShop = () => {
   const [name, setName] = useState('');
@@ -16,7 +16,6 @@ const EditShop = () => {
   const navigate = useNavigate();
   const { shopId } = useParams();
 
-
   const autonomousCommunity = [
     "Andalucía", "Aragón", "Asturias", "Islas Baleares", "Canarias", 
     "Cantabria", "Castilla-La Mancha", "Castilla y León", "Cataluña", 
@@ -28,29 +27,28 @@ const EditShop = () => {
     navigate(`/shop/${shopId}/products`);
   };
 
+  const fetchData = async () => {
+    try {
+      const shopResponse = await axios.get(`http://localhost:8080/shop/${shopId}`, {
+        withCredentials: true,
+      });
+      const shopData = shopResponse.data;
+      setName(shopData.name);
+      setPhone(shopData.phone);
+      setAddress(shopData.address);
+      setCommunity(shopData.community);
+      setPostal_code(shopData.postal_code);
+      setJob(shopData.job);
+
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setError('Error fetching data. Please try again.');
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Obtener los detalles de la tienda
-        const shopResponse = await axios.get(`http://localhost:8080/shop/${shopId}`, {
-          withCredentials: true,
-        });
-        const shopData = shopResponse.data;
-        setName(shopData.name);
-        setPhone(shopData.phone);
-        setAddress(shopData.address);
-        setCommunity(shopData.community);
-        setPostal_code(shopData.postal_code);
-        setJob(shopData.job);
-
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setError('Error fetching data. Please try again.');
-        setLoading(false);
-      }
-    };
-
     fetchData();
   }, [shopId]);
 
@@ -75,6 +73,7 @@ const EditShop = () => {
     } catch (err) {
       console.error(err);
       setError("Error updating shop: " + (err.response?.data?.message || err.message));
+    } finally {
       setLoading(false);
     }
   };
@@ -96,7 +95,15 @@ const EditShop = () => {
   };
 
   if (loading) {
-    return <strong>Loading...</strong>;
+    return (
+        <div className="mt-4">
+            <div className="text-center">
+                <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
+        </div>
+    );
   }
 
   if (error) {

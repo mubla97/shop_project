@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
 
 const Shop = () => {
   const [name, setName] = useState('');
@@ -44,6 +45,8 @@ const Shop = () => {
   const doShop = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
+
     axios.post('http://localhost:8080/shop', {
       name: name,
       phone: phone,
@@ -56,11 +59,14 @@ const Shop = () => {
     })
     .then(response => {
       console.log(response.data);
-      navigate(`/shop`);
+      window.location.reload();
     })
     .catch(err => {
       console.error(err);
       alert("Error to create shop: " + (err.response?.data?.message || err.message));
+    })
+    .finally(() => {
+      setLoading(false);
     });
   };
 
@@ -69,7 +75,15 @@ const Shop = () => {
   };
 
   if (loading) {
-    return <strong>Loading...</strong>;
+    return (
+        <div className="mt-4">
+            <div className="text-center">
+                <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
+        </div>
+    );
   }
 
   return (

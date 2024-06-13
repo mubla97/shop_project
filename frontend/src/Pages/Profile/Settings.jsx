@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BsFillTrash3Fill, BsPencilSquare } from 'react-icons/bs';
+import { Spinner } from 'react-bootstrap';
 
 const Settings = () => {
     const [username, setUsername] = useState();
@@ -47,14 +48,22 @@ const Settings = () => {
                 setAvatar(avatar);
             })
             .catch((error) => {
-                console.error('Error al obtener los datos del perfil:', error);
+                console.error('Error fetching user data:', error);
             }).finally(() => {
                 setLoading(false);
             });
     }, []);
 
     if (loading) {
-        return <strong>Loading...</strong>;
+        return (
+            <div className="mt-4">
+                <div className="text-center">
+                    <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                </div>
+            </div>
+        );
     }
 
     return (

@@ -1,18 +1,17 @@
-import 'fad-react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import BootstrapTable from 'fad-react-bootstrap-table-next';
-import { MDBRow } from 'mdb-react-ui-kit';
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { BsFillTrash3Fill, BsPencilSquare } from 'react-icons/bs';
-import { Modal, Button } from "react-bootstrap"; 
+import { BsFillTrash3Fill, BsPencilSquare } from "react-icons/bs";
+import { Modal, Button, Spinner } from "react-bootstrap";
+import BootstrapTable from "fad-react-bootstrap-table-next";
+import { MDBRow } from "mdb-react-ui-kit";
 
 const Products = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [products, setProducts] = useState([]);
-  const [showModal, setShowModal] = useState(false); 
-  const [deleteProductId, setDeleteProductId] = useState(null); 
+  const [showModal, setShowModal] = useState(false);
+  const [deleteProductId, setDeleteProductId] = useState(null);
   const navigate = useNavigate();
   const { shopId } = useParams();
 
@@ -31,13 +30,19 @@ const Products = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const productsResponse = await axios.get(`http://localhost:8080/shop/${shopId}/products`, {
-          withCredentials: true,
-        });
+        const productsResponse = await axios.get(
+          `http://localhost:8080/shop/${shopId}/products`,
+          {
+            withCredentials: true,
+          }
+        );
 
         if (Array.isArray(productsResponse.data)) {
           setProducts(productsResponse.data);
-        } else if (productsResponse.data.products && Array.isArray(productsResponse.data.products)) {
+        } else if (
+          productsResponse.data.products &&
+          Array.isArray(productsResponse.data.products)
+        ) {
           setProducts(productsResponse.data.products);
         } else {
           setProducts([]);
@@ -56,9 +61,11 @@ const Products = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8080/shop/${shopId}/products/${deleteProductId}`);
+      await axios.delete(
+        `http://localhost:8080/shop/${shopId}/products/${deleteProductId}`
+      );
       setProducts(products.filter((product) => product.id !== deleteProductId));
-      setShowModal(false); // Cierra el modal después de la eliminación
+      setShowModal(false);
     } catch (err) {
       console.error("Error deleting product:", err);
     }
@@ -74,14 +81,6 @@ const Products = () => {
     setDeleteProductId(null);
   };
 
-  if (loading) {
-    return <strong>Loading...</strong>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
-
   let columns = [
     { dataField: "id", text: "ID", sort: true },
     { dataField: "name", text: "Name", sort: true },
@@ -95,14 +94,19 @@ const Products = () => {
       formatter: (cellContent, row) => {
         return (
           <div>
-            <button id={`Edit-${row.id}`} aria-label="Edit" className="btn btn-success btn-sm" onClick={() => redirectToEditProduct(row.id)}>
+            <button
+              id={`Edit-${row.id}`}
+              aria-label="Edit"
+              className="btn btn-success btn-sm"
+              onClick={() => redirectToEditProduct(row.id)}
+            >
               <BsPencilSquare />
             </button>
             <button
               id={`Delete-${row.id}`}
               aria-label="Delete"
               className="btn btn-danger btn-sm m-2"
-              onClick={() => handleShowModal(row.id)} // Llama a handleShowModal en lugar de productDelete
+              onClick={() => handleShowModal(row.id)}
             >
               <BsFillTrash3Fill />
             </button>
@@ -112,22 +116,76 @@ const Products = () => {
     },
   ];
 
+  if (loading) {
+    return (
+        <div className="mt-4">
+            <div className="text-center">
+                <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
+        </div>
+    );
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
     <>
-      <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px", border: "1px solid #ccc", borderRadius: "10px", marginTop: "30px" }}>
+      <div
+        style={{
+          maxWidth: "800px",
+          margin: "0 auto",
+          padding: "20px",
+          border: "1px solid #ccc",
+          borderRadius: "10px",
+          marginTop: "30px",
+        }}
+      >
         <h2>Products</h2>
-        <MDBRow className="justify-content-center align-items-center bg-white">
-          <BootstrapTable bootstrap4 keyField="id" data={Array.isArray(products) ? products : []} columns={columns} striped hover condensed />
+        <MDBRow
+          className="justify-content-center align-items-center bg-white"
+        >
+          <BootstrapTable
+            bootstrap4
+            keyField="id"
+            data={Array.isArray(products) ? products : []}
+            columns={columns}
+            striped
+            hover
+            condensed
+          />
         </MDBRow>
       </div>
 
-      <div style={{  maxWidth: '800px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '10px', marginTop: '30px' }}>
+      <div
+        style={{
+          maxWidth: "800px",
+          margin: "0 auto",
+          padding: "20px",
+          border: "1px solid #ccc",
+          borderRadius: "10px",
+          marginTop: "30px",
+        }}
+      >
         <h2>Settings</h2>
-        <button  type="button" className="btn btn-warning btn-lg" onClick={redirectToShop} style={{ minWidth: '150px', padding: '8px', margin: '5px' }}>
-           Shop
+        <button
+          type="button"
+          className="btn btn-warning btn-lg"
+          onClick={redirectToShop}
+          style={{ minWidth: "150px", padding: "8px", margin: "5px" }}
+        >
+          Shop
         </button>
-        <button type="button" className="btn btn-primary btn-lg" onClick={redirectToCreateProducts} style={{ minWidth: '150px', padding: '8px', margin: '5px' }}>
-           Create Product
+        <button
+          type="button"
+          className="btn btn-primary btn-lg"
+          onClick={redirectToCreateProducts}
+          style={{ minWidth: "150px", padding: "8px", margin: "5px" }}
+        >
+          Create Product
         </button>
       </div>
 
