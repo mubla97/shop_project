@@ -45,7 +45,7 @@ const ShopDetail = () => {
   }, [shopId]);
 
   if (loadingShop || loadingProducts) {
-    return <p>Cargando...</p>;
+    return <p>Loading...</p>;
   }
 
   if (error) {
@@ -54,9 +54,9 @@ const ShopDetail = () => {
 
   return (
     <div className="container mt-4">
-      <div className="card mb-4">
-        <h5 className="card-header">Shop Information</h5>
-        <div className="card-body">
+      <div className="card shadow-sm mb-4">
+        <h5 className="card-header" style={{ backgroundColor: 'green', color: 'white' }}>Shop Information</h5>
+        <div className="card-body" >
           <h5 className="card-title text-start">{shop.name}</h5>
           <p className="card-text text-start">
             <strong>Phone:</strong> {shop.phone}
