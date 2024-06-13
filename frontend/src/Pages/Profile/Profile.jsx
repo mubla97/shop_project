@@ -11,7 +11,7 @@ const Profile = () => {
         name: null,
         lastname: null,
         phone: null,
-        avatar: null // Añadir el campo avatar
+        avatar: null
     });
     const [pageVis, setPageVis] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
@@ -27,37 +27,40 @@ const Profile = () => {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8080/profile', {
-            withCredentials: true,
-        })
-        .then((res) => {
-            console.log(res.data);
-            const userDetails = {
-                username: res.data.username,
-                name: res.data.name,
-                email: res.data.email,
-                lastname: res.data.lastname,
-                phone: res.data.phone,
-                avatar: res.data.avatar 
-            };
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/profile', {
+                    withCredentials: true,
+                });
+                console.log(response.data);
+                const userDetails = {
+                    username: response.data.username,
+                    name: response.data.name,
+                    email: response.data.email,
+                    lastname: response.data.lastname,
+                    phone: response.data.phone,
+                    avatar: response.data.avatar
+                };
+                setUserData(userDetails);
+                setPageVis(true);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+                setErrorMessage(true);
+                localStorage.removeItem('accessToken');
+            } finally {
+                setLoading(false);
+            }
+        };
 
-            setUserData(userDetails);
-            setPageVis(true);
-        })
-        .catch(() => {
-            setErrorMessage(true);
-            localStorage.removeItem('accessToken');
-        })
-        .finally(() => {
-            setLoading(false);
-        });
+        fetchUserData();
     }, []);
 
     if (loading) {
         return <div>Loading...</div>;
     }
 
-    if (userData.id === null && localStorage.getItem('accessToken') === null) {
+    if (!userData.username) {
+        // Check if necessary user data is available
         return navigate('/login');
     }
 
@@ -70,71 +73,68 @@ const Profile = () => {
     }
 
     return (
-        <>
-            <MDBContainer className="py-5 h-100">
-                <MDBRow className="justify-content-center align-items-center">
-                    <MDBCol lg="8" className="mb-4 mb-lg-0">
-                        <MDBCard className="mb-3" style={{ borderRadius: '.5rem' }}>
-                            <MDBRow className="g-0">
-                                <MDBCol md="4" className="gradient-custom text-center text-white"
-                                    style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}>
-                                        
-                                        <MDBCardImage
-                                            src={userData.avatar ? `http://localhost:8080/storage/${userData.avatar}` : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"}
-                                            alt={userData.avatar ? "Avatar" : "Default Avatar"}
-                                            className="my-5"
-                                            style={{ width: '80px' }}
-                                            fluid
-                                        />
-                                    <MDBTypography tag="h5">{userData.name} {userData.lastname}</MDBTypography>
-                                    <MDBCardText>@{userData.username}</MDBCardText>
-                                    <MDBIcon far icon="edit mb-5" />
-                                </MDBCol>
-                                <MDBCol md="8">
-                                    <MDBCardBody className="p-4">
-                                        <MDBTypography tag="h6">Information</MDBTypography>
-                                        <hr className="mt-0 mb-4" />
-                                        <MDBRow className="pt-1">
-                                            <MDBCol size="6" className="mb-3">
-                                                <MDBTypography tag="h6">Username</MDBTypography>
-                                                <MDBCardText className="text-muted">{userData.username}</MDBCardText>
-                                            </MDBCol>
-                                            <MDBCol size="6" className="mb-3">
-                                                <MDBTypography tag="h6">Email</MDBTypography>
-                                                <MDBCardText className="text-muted">{userData.email}</MDBCardText>
-                                            </MDBCol>
-                                            <MDBCol size="6" className="mb-3">
-                                                <MDBTypography tag="h6">Name</MDBTypography>
-                                                <MDBCardText className="text-muted">{userData.name}</MDBCardText>
-                                            </MDBCol>
-                                            <MDBCol size="6" className="mb-3">
-                                                <MDBTypography tag="h6">Phone</MDBTypography>
-                                                <MDBCardText className="text-muted">{userData.phone}</MDBCardText>
-                                            </MDBCol>
-                                            <MDBCol size="6" className="mb-3">
-                                                <MDBTypography tag="h6">Last Name</MDBTypography>
-                                                <MDBCardText className="text-muted">{userData.lastname}</MDBCardText>
-                                            </MDBCol>
-                                        </MDBRow>
+        <MDBContainer className="py-5 h-100">
+            <MDBRow className="justify-content-center align-items-center">
+                <MDBCol lg="8" className="mb-4 mb-lg-0">
+                    <MDBCard className="mb-3" style={{ borderRadius: '.5rem' }}>
+                        <MDBRow className="g-0">
+                            <MDBCol md="4" className="gradient-custom text-center text-white"
+                                style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}>
+                                <MDBCardImage
+                                    src={userData.avatar ? `http://localhost:8080/storage/${userData.avatar}` : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"}
+                                    alt={userData.avatar ? "Avatar" : "Default Avatar"}
+                                    className="my-5"
+                                    style={{ width: '80px' }}
+                                    fluid
+                                />
+                                <MDBTypography tag="h5">{userData.name} {userData.lastname}</MDBTypography>
+                                <MDBCardText className="text-white">@{userData.username}</MDBCardText>
+                                <MDBIcon far icon="edit mb-5" />
+                            </MDBCol>
+                            <MDBCol md="8">
+                                <MDBCardBody className="p-4">
+                                    <MDBTypography tag="h6">Information</MDBTypography>
+                                    <hr className="mt-0 mb-4" />
+                                    <MDBRow className="pt-1">
+                                        <MDBCol size="6" className="mb-3">
+                                            <MDBTypography tag="h6">Username</MDBTypography>
+                                            <MDBCardText className="text-muted">{userData.username}</MDBCardText>
+                                        </MDBCol>
+                                        <MDBCol size="6" className="mb-3">
+                                            <MDBTypography tag="h6">Email</MDBTypography>
+                                            <MDBCardText className="text-muted">{userData.email}</MDBCardText>
+                                        </MDBCol>
+                                        <MDBCol size="6" className="mb-3">
+                                            <MDBTypography tag="h6">Name</MDBTypography>
+                                            <MDBCardText className="text-muted">{userData.name}</MDBCardText>
+                                        </MDBCol>
+                                        <MDBCol size="6" className="mb-3">
+                                            <MDBTypography tag="h6">Phone</MDBTypography>
+                                            <MDBCardText className="text-muted">{userData.phone}</MDBCardText>
+                                        </MDBCol>
+                                        <MDBCol size="6" className="mb-3">
+                                            <MDBTypography tag="h6">Last Name</MDBTypography>
+                                            <MDBCardText className="text-muted">{userData.lastname}</MDBCardText>
+                                        </MDBCol>
+                                    </MDBRow>
 
-                                        <MDBTypography tag="h6">Settings</MDBTypography>
-                                        <hr className="mt-0 mb-4" />
-                                        <MDBRow className="pt-1">
-                                            <MDBCol size="6" className="mb-3">
-                                                <button type="button" className="btn btn-success" onClick={redirectToEditProfile}><BsPencilSquare /> Edit Information</button>
-                                            </MDBCol>
-                                            <MDBCol size="6" className="mb-3">
-                                                <button type="button" className="btn btn-success" onClick={redirectToProfileSettings}><BsPencilSquare />  Settings</button>
-                                            </MDBCol>
-                                        </MDBRow>
-                                    </MDBCardBody>
-                                </MDBCol>
-                            </MDBRow>
-                        </MDBCard>
-                    </MDBCol>
-                </MDBRow>
-            </MDBContainer>
-        </>
+                                    <MDBTypography tag="h6">Settings</MDBTypography>
+                                    <hr className="mt-0 mb-4" />
+                                    <MDBRow className="pt-1">
+                                        <MDBCol size="6" className="mb-3">
+                                            <button type="button" className="btn btn-success" onClick={redirectToEditProfile}><BsPencilSquare /> Edit Information</button>
+                                        </MDBCol>
+                                        <MDBCol size="6" className="mb-3">
+                                            <button type="button" className="btn btn-success" onClick={redirectToProfileSettings}><BsPencilSquare />  Settings</button>
+                                        </MDBCol>
+                                    </MDBRow>
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
+                </MDBCol>
+            </MDBRow>
+        </MDBContainer>
     );
 }
 
