@@ -1,7 +1,7 @@
 import { Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const News = ({ shops }) => {
+const News = ({ news }) => {
 
   const navigate = useNavigate();
 
@@ -13,13 +13,13 @@ const News = ({ shops }) => {
     <div className="container mt-4">
       <h2 className="mb-4">Last shops</h2>
       <div className="d-flex overflow-auto">
-        {shops.map((shop) => (
-          <div key={shop.id} className="me-3">
+        {news.map((n) => (
+          <div key={n.id} className="me-3">
             <Card style={{ width: "400px" }} className="shadow-sm mb-3">
               <Card.Body>
-                <Card.Title className="fw-bold">{shop.name}</Card.Title>
-                <Card.Text>{shop.community}</Card.Text>
-                <Button variant="success" onClick={() => redirectToViewShop(shop.id)}>View more</Button>
+                <Card.Title className="fw-bold">{n.name}</Card.Title>
+                <Card.Text>{n.community}</Card.Text>
+                <Button variant="success" onClick={() => redirectToViewShop(n.id)}>View more</Button>
               </Card.Body>
             </Card>
           </div>

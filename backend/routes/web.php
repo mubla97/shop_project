@@ -21,6 +21,7 @@ Route::get('/', [AuthController::class, 'index'])->name('home');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [RegisterController::class, 'register']);
 Route::get('shop/news', [ShopController::class, 'news']);
+Route::get('shop/all', [ShopController::class, 'all']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/shop', [ShopController::class, 'store']);

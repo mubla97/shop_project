@@ -138,4 +138,12 @@ class ShopController extends Controller
 
         return response()->json($shops);
     }
+
+    public function all()
+    {
+        // Obtener todas las tiendas
+        $shops = Shop::orderBy('id', 'asc')->get();
+
+        return response()->json($shops);
+    }
 }
