@@ -49,6 +49,20 @@ class DatabaseSeeder extends Seeder
         }
 
 
+         // Create user and asign role
+         $userTest = User::factory()->create([
+            'username' => 'usuari',
+            'name' => 'user',
+            'email' => 'user@hotmail.com',
+            'password' => Hash::make(env('ADMIN_USER_PASS')),
+        ]);
+
+        $userRoleTest = Role::where('name', 'user')->first();
+
+        if ($userRoleTest) {
+            $userTest->roles()->attach($userRoleTest->id);
+        }
+
           // Create 10 users, each with a store and 10 products.
         User::factory(10)->create()->each(function ($user) {
             // Create a store for each user
@@ -57,7 +71,6 @@ class DatabaseSeeder extends Seeder
             // Create 10 products for each store
             Product::factory(10)->create(['shop_id' => $shop->id]);
 
-            
             $role = Role::where('name', 'user')->first();
 
             if ($role) {

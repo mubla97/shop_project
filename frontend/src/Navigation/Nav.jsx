@@ -6,6 +6,7 @@ import NavAdmin from "./Navs/NavAdmin";
 
 const Nav = () => {
   const { role, loading } = useContext(UserContext);
+  let token = localStorage.getItem("accessToken");
 
   if (loading) {
     return (
@@ -17,9 +18,9 @@ const Nav = () => {
         );
   }
 
-  if (role === 'admin') {
+  if (token !== null && role === 'admin') {
     return <NavAdmin />;
-  } else if (role === 'user') {
+  } else if (token !== null && role === 'user') {
     return <NavUser />;
   } else {
     return <NavIndex />;
