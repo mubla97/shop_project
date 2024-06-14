@@ -23,6 +23,7 @@ import Users from './Pages/Admin/User/Users';
 import AddUser from './Pages/Admin/User/AddUser';
 import EditUser from './Pages/Admin/User/EditUser';
 
+import Unauthorized from './Pages/Admin/Unauthorized';
 import ProtectedRoute from './Components/ProtectedRoute';
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/search" element={<Search />} />
+      <Route path="/unauthorized" element={<Unauthorized />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/shop" element={<Shop />} />
         <Route path="/users" element={<Users />} />

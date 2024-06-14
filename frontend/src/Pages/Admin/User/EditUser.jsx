@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { UserContext } from '../../../Context/UserContext';
+import { Spinner } from "react-bootstrap";
 
 const EditUser = () => {
   const { userId } = useParams();
@@ -11,11 +13,19 @@ const EditUser = () => {
   const [password, setPassword] = useState('');
   const [password_confirmation, setPasswordConfirmation] = useState('');
   const [phone, setPhone] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loadingPage, setLoadingPage] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Función para cargar los datos del usuario desde el servidor al cargar el componente
+  const { role, loading } = useContext(UserContext);
+
+  useEffect(() => {
+    // Verificar el rol y redirigir si no es admin
+    if (!loading && role !== 'admin') {
+      navigate("/unauthorized");
+    }
+  }, [role, loading, navigate]);
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -28,30 +38,37 @@ const EditUser = () => {
         setName(userData.name);
         setLastname(userData.lastname);
         setPhone(userData.phone);
+        setLoadingPage(false);
       } catch (error) {
         console.error('Error fetching user data:', error);
         setError('Error fetching user data. Please try again.');
+        setLoadingPage(false);
       }
     };
-    
-    fetchUserData();
-  }, [userId]);
 
-  // Función para manejar el envío del formulario de edición
+    if (role === 'admin') {
+      fetchUserData();
+    }
+  }, [userId, role]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLoadingPage(true);
 
     if (password !== password_confirmation) {
-      return alert('The two passwords are different');
+      setError('The two passwords are different');
+      setLoadingPage(false);
+      return;
     }
 
     if (password.length > 0 && password.length < 8) {
-      return alert('Password must be at least 8 characters long');
+      setError('Password must be at least 8 characters long');
+      setLoadingPage(false);
+      return;
     }
 
     try {
-      const response = await axios.put(`http://localhost:8080/users/${userId}`, {
+      await axios.put(`http://localhost:8080/users/${userId}`, {
         username,
         email,
         name,
@@ -62,15 +79,23 @@ const EditUser = () => {
       }, {
         withCredentials: true
       });
-      console.log(response.data);
       navigate("/users");
     } catch (error) {
       console.error('Error updating user:', error);
       setError('Error updating user. Please try again.');
+      setLoadingPage(false);
     }
-
-    setLoading(false);
   };
+
+  if (loading || loadingPage) {
+    return (
+      <div className="mt-4 text-center">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    );
+  }
 
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '10px', marginTop: '30px' }}>
@@ -105,8 +130,8 @@ const EditUser = () => {
           <label>Phone:</label>
           <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}/>
         </div>
-        <button type="submit" disabled={loading} className="btn btn-primary btn-lg mt-3">
-          {loading ? 'Updating...' : 'Update User'}
+        <button type="submit" disabled={loadingPage} className="btn btn-primary btn-lg mt-3">
+          {loadingPage ? 'Updating...' : 'Update User'}
         </button>
       </form>
     </div>

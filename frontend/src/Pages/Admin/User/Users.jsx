@@ -1,35 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BsFillTrash3Fill, BsPencilSquare } from "react-icons/bs";
 import { Modal, Button, Spinner } from "react-bootstrap";
 import BootstrapTable from "fad-react-bootstrap-table-next";
 import { MDBRow } from "mdb-react-ui-kit";
+import { UserContext } from '../../../Context/UserContext';
 
 const Users = () => {
-  const [loading, setLoading] = useState(true);
+  const { role, loading, updateUserRole } = useContext(UserContext);
+  const [loadingData, setLoadingData] = useState(true); // Estado de carga para los datos de usuarios
   const [error, setError] = useState("");
   const [users, setUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [deleteUserId, setDeleteUserId] = useState(null);
   const navigate = useNavigate();
 
-  const redirectToCreateUser = () => {
-    navigate(`/users/create`);
-  };
-
-  const redirectToEditUser = (userId) => {
-    navigate(`/users/${userId}/edit`);
-  };
-
   useEffect(() => {
+    console.log('Role:', role);
+    console.log('Loading:', loading);
+
+    if (loading) {
+      return; 
+    }
+
+    if (role !== 'admin') {
+      navigate(`/unauthorized`);
+      return;
+    }
+
     const fetchData = async () => {
       try {
         const usersResponse = await axios.get(
           `http://localhost:8080/users`,
-          {
-            withCredentials: true,
-          }
+          { withCredentials: true }
         );
 
         if (Array.isArray(usersResponse.data)) {
@@ -43,16 +47,24 @@ const Users = () => {
           setUsers([]);
         }
 
-        setLoading(false);
+        setLoadingData(false); 
       } catch (error) {
         console.error("Error fetching data:", error);
         setError("Error fetching data. Please try again.");
-        setLoading(false);
+        setLoadingData(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [role, loading, navigate]);
+
+  const redirectToCreateUser = () => {
+    navigate(`/users/create`);
+  };
+
+  const redirectToEditUser = (userId) => {
+    navigate(`/users/${userId}/edit`);
+  };
 
   const handleDelete = async () => {
     try {
@@ -85,32 +97,31 @@ const Users = () => {
     {
       dataField: "Action",
       text: "Action",
-      formatter: (cellContent, row) => {
-        return (
-          <div>
-            <button
-              id={`Edit-${row.id}`}
-              aria-label="Edit"
-              className="btn btn-success btn-sm"
-              onClick={() => redirectToEditUser(row.id)}
-            >
-              <BsPencilSquare />
-            </button>
-            <button
-              id={`Delete-${row.id}`}
-              aria-label="Delete"
-              className="btn btn-danger btn-sm m-2"
-              onClick={() => handleShowModal(row.id)}
-            >
-              <BsFillTrash3Fill />
-            </button>
-          </div>
-        );
-      },
+      formatter: (cellContent, row) => (
+        <div>
+          <button
+            id={`Edit-${row.id}`}
+            aria-label="Edit"
+            className="btn btn-success btn-sm"
+            onClick={() => redirectToEditUser(row.id)}
+          >
+            <BsPencilSquare />
+          </button>
+          <button
+            id={`Delete-${row.id}`}
+            aria-label="Delete"
+            className="btn btn-danger btn-sm m-2"
+            onClick={() => handleShowModal(row.id)}
+          >
+            <BsFillTrash3Fill />
+          </button>
+        </div>
+      ),
     },
   ];
 
-  if (loading) {
+  // Consolidar el estado de carga
+  if (loading || loadingData) {
     return (
       <div className="mt-4">
         <div className="text-center">
@@ -136,7 +147,6 @@ const Users = () => {
           border: "1px solid #ccc",
           borderRadius: "10px",
           marginTop: "30px",
-          margin
         }}
       >
         <h2>Users</h2>
@@ -150,9 +160,7 @@ const Users = () => {
           Create User
         </button>
 
-        <MDBRow
-          className="justify-content-center align-items-center bg-white"
-        >
+        <MDBRow className="justify-content-center align-items-center bg-white">
           <BootstrapTable
             bootstrap4
             keyField="id"

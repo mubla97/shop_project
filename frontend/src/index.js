@@ -14,10 +14,8 @@ root.render(
   <React.StrictMode>
     <UserProvider>
       <BrowserRouter>
-        <Suspense>
           <Nav />
           <App />
-        </Suspense>
       </BrowserRouter>
     </UserProvider>
   </React.StrictMode>,
