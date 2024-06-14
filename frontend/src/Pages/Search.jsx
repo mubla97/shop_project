@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, Button, Form, Spinner  } from 'react-bootstrap';
+import { Card, Button, Form, Spinner } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
 const Search = () => {
@@ -9,14 +9,13 @@ const Search = () => {
   const [products, setProducts] = useState([]);
   const [filteredShops, setFilteredShops] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [searchType, setSearchType] = useState('shops'); 
-  const [isLoading, setIsLoading] = useState(true); 
+  const [searchType, setSearchType] = useState('shops');
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   const redirectToViewShop = (id) => {
     navigate(`/shop/${id}/show`);
   };
-
 
   // Fetch all shops and products on component mount
   useEffect(() => {
@@ -105,17 +104,17 @@ const Search = () => {
             {searchType === 'products' && (
               <>
                 <h4>Products</h4>
-                <div className="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-4">
+                <div className="d-flex flex-wrap justify-content-center">
                   {filteredProducts.map((product) => (
-                    <div key={product.id} className="col mb-4">
-                      <Card className="h-100 card-product">
-                        <Card.Body>
-                          <Card.Title>{product.name}</Card.Title>
-                          <Card.Text>{product.description}</Card.Text>
-                          <Button variant="primary" onClick={() => redirectToViewShop(product.shop_id)}>View more</Button>
-                        </Card.Body>
-                      </Card>
-                    </div>
+                    <Card key={product.id} style={{ width: "400px", margin: "10px" }} className="shadow-sm">
+                      <Card.Body>
+                        <Card.Title>{product.name}</Card.Title>
+                        <Card.Text>{product.description}</Card.Text>
+                      </Card.Body>
+                      <div className="card-footer d-flex justify-content-center">
+                        <Button variant="primary" onClick={() => redirectToViewShop(product.shop_id)}>View more</Button>
+                      </div>
+                    </Card>
                   ))}
                 </div>
               </>
