@@ -37,7 +37,7 @@ const AddShop = () => {
         const response = await axios.get(`http://localhost:8080/usersWithoutShop`, {
           withCredentials: true
         });
-        setUsersWithoutShop(response.data); // Suponiendo que la respuesta es un array de usuarios
+        setUsersWithoutShop(response.data); 
       } catch (error) {
         console.error('Error fetching users without shop:', error);
       }

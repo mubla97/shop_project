@@ -62,12 +62,7 @@ class ShopController extends Controller
         try {
             // Encuentra la tienda por ID
             $shop = Shop::findOrFail($id); 
-
-            // Verificar si el usuario actual es el propietario de la tienda
-            if ($shop->user_id !== Auth::id()) {
-                return response()->json(['message' => 'Unauthorized'], 403);
-            }
-
+            
             return response()->json($shop, 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Shop not found'], 404);
@@ -101,14 +96,6 @@ class ShopController extends Controller
            try {
                $shop = Shop::findOrFail($id);
    
-             // Verificar el rol del usuario autenticado
-            if (Auth::user()->role !== 'admin') {
-                // Si no es admin, verificar si el usuario es el propietario de la tienda
-                if ($shop->user_id !== Auth::id()) {
-                    return response()->json(['message' => 'Unauthorized'], 403);
-                }
-            }
-   
                // Actualizar los detalles de la tienda con los datos validados
                $shop->update($validatedData);
    
@@ -123,14 +110,6 @@ class ShopController extends Controller
         try {
             
             $shop = Shop::findOrFail($id);
-
-             // Verificar el rol del usuario autenticado
-             if (Auth::user()->role !== 'admin') {
-                // Si no es admin, verificar si el usuario es el propietario de la tienda
-                if ($shop->user_id !== Auth::id()) {
-                    return response()->json(['message' => 'Unauthorized'], 403);
-                }
-            }
 
             // Eliminar todos los productos asociados a la tienda
             Product::where('shop_id', $id)->delete();
