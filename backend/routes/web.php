@@ -62,6 +62,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/shops/{id}', [ShopController::class, 'update']);
         Route::delete('/shops/{id}', [ShopController::class, 'destroy']);
         Route::get('/usersWithoutShop', [UserController::class, 'usersWithoutShop']);
+
+        //PRODUCTS
+        Route::get('/products', [ProductController::class, 'all']);
+        Route::post('/shops/{shopId}/products', [ProductController::class, 'store']);
+        Route::get('/products/{productId}', [ProductController::class, 'showProduct']);
+        Route::put('/shops/{shopId}/products/{productId}', [ProductController::class, 'update']);
+        Route::delete('/shops/{shopId}/products/{productId}', [ProductController::class, 'deleteProduct']);
     });
 });
 

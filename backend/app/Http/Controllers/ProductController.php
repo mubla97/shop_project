@@ -13,7 +13,6 @@ class ProductController extends Controller
     public function getProductsByShop($shopId)
     {
         try {
-            // Supongamos que tienes una relación de productos con la tienda en el modelo Product
             $products = Product::where('shop_id', $shopId)->get();
 
             $shop = Shop::findOrFail($shopId); 
@@ -104,15 +103,29 @@ class ProductController extends Controller
 
     public function show($shopId, $productId)
     {
+        
         // Buscar el producto por shopId y productId
         $product = Product::where('shop_id', $shopId)->where('id', $productId)->first();
 
+        
         // Verificar si el producto existe
         if (!$product) {
             return response()->json(['message' => 'Product not found'], 404);
         }
 
         // Devolver el producto en formato JSON
+        return response()->json($product);
+    }
+
+    public function showProduct($productId)
+    {
+        
+        $product = Product::where('id', $productId)->first();
+
+        if (!$product) {
+            return response()->json(['message' => 'Product not found'], 404);
+        }
+        
         return response()->json($product);
     }
 
