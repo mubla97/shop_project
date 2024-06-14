@@ -112,7 +112,7 @@ Si desea utilizar la aplicación en segundo plano, puede usar:
 
     docker-compose up --build -d
 
-### 4. Migrar la base de datos
+### 5. Migrar la base de datos
 
 Ejecute el siguiente comando para ver sus contenedores de docker:
 
@@ -130,7 +130,7 @@ Si desea obtener datos de prueba ejecute el siguiente comando:
 
     php artisan migrate:fresh --seed
 
-### 5. Acceso a la app
+### 6. Acceso a la app
 
 - Frontend - localhost:3000 (aplicación principal)
 - Backend  - localhost:8200
