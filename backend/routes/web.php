@@ -46,6 +46,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/shop/{shopId}/products/{productId}', [ProductController::class, 'show']);
     Route::put('/shop/{shopId}/products/{productId}', [ProductController::class, 'update']);
 
+    // Routes only ADMINS
+    Route::middleware('admin')->group(function () {
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    });
 });
+
 
 

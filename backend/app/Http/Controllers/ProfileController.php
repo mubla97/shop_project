@@ -11,11 +11,9 @@ class ProfileController extends Controller
    // Método para obtener los detalles del perfil del usuario autenticado
    public function getProfile()
    {
-       $user = Auth::user(); // Obtiene el usuario autenticado
+       $user = Auth::user();
 
-       // Comprueba si el usuario está autenticado
        if ($user) {
-           // Devuelve los detalles del usuario en formato JSON
            return response()->json([
                'username' => $user->username,
                'email' => $user->email,

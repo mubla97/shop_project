@@ -19,6 +19,7 @@ import CreateProduct from './Pages/Shop/CreateProduct';
 import EditProduct from './Pages/Shop/EditProduct';
 import ShopDetail from './Pages/Index/ShopDetail';
 import Search from './Pages/Search';
+import Users from './Pages/Admin/Users';
 
 import ProtectedRoute from './Components/ProtectedRoute';
 
@@ -48,6 +49,7 @@ function App() {
       <Route path="/search" element={<Search />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/shop" element={<Shop />} />
+        <Route path="/users" element={<Users />} />
         <Route path="/shop/:shopId" element={<EditShop />} />
         <Route path="/shop/:shopId/products" element={<ProductsShop />} />
         <Route path="/shop/:shopId/products/create" element={<CreateProduct />} />
