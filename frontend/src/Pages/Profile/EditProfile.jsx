@@ -35,7 +35,11 @@ const EditProfile = () => {
             phone: phone
         }, {
             withCredentials: true,
-        }).catch((error) => {
+        })
+        .then(() => {
+            navigate("/profile");
+        })
+        .catch((error) => {
             console.error('Error updating profile:', error);
             setError('Failed to update profile. Please try again later.');
         });

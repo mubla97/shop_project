@@ -112,7 +112,7 @@ const Search = () => {
                         <Card.Text>{product.description}</Card.Text>
                       </Card.Body>
                       <div className="card-footer d-flex justify-content-center">
-                        <Button variant="primary" onClick={() => redirectToViewShop(product.shop_id)}>View more</Button>
+                        <Button variant="primary" onClick={() => redirectToViewShop(product.shop_id)}>View shop</Button>
                       </div>
                     </Card>
                   ))}

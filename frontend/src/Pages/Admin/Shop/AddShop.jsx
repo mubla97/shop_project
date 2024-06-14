@@ -24,7 +24,6 @@ const AddShop = () => {
     "País Vasco", "La Rioja", "Comunidad Valenciana"
   ];
 
-
   let { role } = useContext(UserContext);
   if (role !== 'admin') {
     navigate("/unauthorized");
@@ -58,7 +57,7 @@ const AddShop = () => {
         job,
         postal_code: postalCode,
         community,
-        user_id: selectedUserId // Envía el ID del usuario seleccionado
+        user_id: selectedUserId
       }, {
         withCredentials: true
       });
@@ -88,31 +87,31 @@ const AddShop = () => {
           <form onSubmit={handleSubmit}>
             <div style={{ marginBottom: '10px' }}>
               <label>Name:</label>
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} required style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }} />
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} required placeholder="Enter shop name..." style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }} />
             </div>
             <div style={{ marginBottom: '10px' }}>
               <label>Phone:</label>
-              <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }} />
+              <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required placeholder="Enter phone number..." style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }} />
             </div>
             <div style={{ marginBottom: '10px' }}>
               <label>Address:</label>
-              <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} required style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }} />
+              <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} required placeholder="Enter address..." style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }} />
             </div>
             <div style={{ marginBottom: '10px' }}>
               <label>Postal Code:</label>
-              <input type="text" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} required style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }} />
+              <input type="text" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} required placeholder="Enter postal code..." style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }} />
             </div>
             <div style={{ marginBottom: '10px' }}>
-            <label>Job Type:</label>
-                <select 
-                    id="job" 
-                    name="job" 
-                    value={job} 
-                    onChange={e => setJob(e.target.value)} 
-                    required 
-                    style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+              <label>Job Type:</label>
+              <select 
+                id="job" 
+                name="job" 
+                value={job} 
+                onChange={e => setJob(e.target.value)} 
+                required 
+                style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
                 >
-                    <option value="" disabled>Select a job type</option>
+               <option value="" disabled>Select a job type</option>
                     <option value="Restaurant">Restaurant</option>
                     <option value="Clothing Store">Clothing Store</option>
                     <option value="Supermarket">Supermarket</option>
@@ -143,23 +142,32 @@ const AddShop = () => {
                     <option value="Stationery Store">Stationery Store</option>
                     <option value="Video Store">Video Store</option>
                     <option value="Music Store">Music Store</option>
-                </select>
+              </select>
             </div>
             <div style={{ marginBottom: '10px' }}>
-                <label>Community:</label>
-                <select id="community" name="community" value={community} onChange={(e) => setCommunity(e.target.value)} required 
-                    style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }} >
-
-                    <option value="" disabled>Select a community</option>
-                    {autonomousCommunity.map((comunidad, index) => (
-                    <option key={index} value={comunidad}>{comunidad}</option>
-                    ))}
-
-                </select>
+              <label>Community:</label>
+              <select 
+                id="community" 
+                name="community" 
+                value={community} 
+                onChange={(e) => setCommunity(e.target.value)} 
+                required 
+                style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+                >
+                <option value="" disabled>Select a community</option>
+                {autonomousCommunity.map((comunidad, index) => (
+                  <option key={index} value={comunidad}>{comunidad}</option>
+                ))}
+              </select>
             </div>
             <div style={{ marginBottom: '10px' }}>
               <label>Select User:</label>
-              <select value={selectedUserId} onChange={(e) => setSelectedUserId(e.target.value)} required style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}>
+              <select 
+                value={selectedUserId} 
+                onChange={(e) => setSelectedUserId(e.target.value)} 
+                required 
+                style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+                >
                 <option value="">Select User</option>
                 {usersWithoutShop.map(user => (
                   <option key={user.id} value={user.id}>{user.username}</option>

@@ -109,6 +109,12 @@ class UserController extends Controller
                 return response()->json(['message' => 'User not found.'], 404);
             }
 
+        // Verificar si el usuario tiene una tienda asociada
+        if ($user->shop) {
+            $user->shop->products()->delete();
+            $user->shop->delete();
+        }
+
             $user->delete();
 
             return response()->json(['message' => 'User deleted successfully.'], 200);

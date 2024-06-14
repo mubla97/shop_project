@@ -17,8 +17,6 @@ const Users = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('Role:', role);
-    console.log('Loading:', loading);
 
     if (loading) {
       return; 

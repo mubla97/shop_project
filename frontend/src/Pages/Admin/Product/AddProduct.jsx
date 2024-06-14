@@ -114,6 +114,7 @@ const AddProduct = () => {
             value={formData.name}
             onChange={handleInputChange}
             required
+            placeholder="Enter product name..."
           />
         </Form.Group>
 
@@ -126,6 +127,7 @@ const AddProduct = () => {
             onChange={handleInputChange}
             rows={3}
             required
+            placeholder="Enter product description..."
           />
         </Form.Group>
 
@@ -139,6 +141,7 @@ const AddProduct = () => {
             min="0"
             step="0.01"
             required
+            placeholder="Enter product price..."
           />
         </Form.Group>
 
@@ -151,6 +154,7 @@ const AddProduct = () => {
             onChange={handleInputChange}
             min="0"
             required
+            placeholder="Enter product quantity..."
           />
         </Form.Group>
 
@@ -162,6 +166,7 @@ const AddProduct = () => {
             value={formData.shop_id}
             onChange={handleInputChange}
             required
+            placeholder="Select shop..."
           >
             <option value="">Select Shop</option>
             {shops.map((shop) => (
@@ -172,9 +177,9 @@ const AddProduct = () => {
           </Form.Control>
         </Form.Group>
 
-        <button type="submit" disabled={loading} className="btn btn-success btn-lg mt-3">
+        <Button type="submit" disabled={loading} className="btn btn-success btn-lg mt-3">
           {loading ? 'Adding...' : 'Add Product'}
-        </button>
+        </Button>
       </Form>
     </div>
   );

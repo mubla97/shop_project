@@ -90,6 +90,7 @@ const AddUser = () => {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            placeholder="Enter username..."
             required
             style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
           />
@@ -100,6 +101,7 @@ const AddUser = () => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter email..."
             required
             style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
           />
@@ -110,6 +112,7 @@ const AddUser = () => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            placeholder="Enter name..."
             required
             style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
           />
@@ -120,6 +123,7 @@ const AddUser = () => {
             type="text"
             value={lastname}
             onChange={(e) => setLastname(e.target.value)}
+            placeholder="Enter lastname..."
             required
             style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
           />
@@ -130,6 +134,7 @@ const AddUser = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter password..."
             required
             style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
           />
@@ -140,6 +145,7 @@ const AddUser = () => {
             type="password"
             value={password_confirmation}
             onChange={(e) => setPasswordConfirmation(e.target.value)}
+            placeholder="Confirm password..."
             required
             style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
           />
@@ -150,6 +156,7 @@ const AddUser = () => {
             type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            placeholder="Enter phone number..."
             style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
           />
         </div>

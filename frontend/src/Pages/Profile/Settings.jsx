@@ -34,7 +34,6 @@ const Settings = () => {
     };
 
     const toggleModal = () => {
-        console.log("Modal state toggled:", !showModal);
         setShowModal(!showModal);
     };
 
