@@ -48,7 +48,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Routes only ADMINS
     Route::middleware('admin')->group(function () {
-        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::get('/users', [UserController::class, 'index']);
+        Route::post('/users', [UserController::class, 'store']);
+        Route::get('/users/{id}', [UserController::class, 'show']);
+        Route::put('/users/{id}', [UserController::class, 'update']);
+        Route::delete('/users/{id}', [UserController::class, 'destroy']);
     });
 });
 

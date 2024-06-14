@@ -19,7 +19,9 @@ import CreateProduct from './Pages/Shop/CreateProduct';
 import EditProduct from './Pages/Shop/EditProduct';
 import ShopDetail from './Pages/Index/ShopDetail';
 import Search from './Pages/Search';
-import Users from './Pages/Admin/Users';
+import Users from './Pages/Admin/User/Users';
+import AddUser from './Pages/Admin/User/AddUser';
+import EditUser from './Pages/Admin/User/EditUser';
 
 import ProtectedRoute from './Components/ProtectedRoute';
 
@@ -50,6 +52,8 @@ function App() {
       <Route element={<ProtectedRoute />}>
         <Route path="/shop" element={<Shop />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/users/create" element={<AddUser />} />
+        <Route path="/users/:userId/edit" element={<EditUser />} />
         <Route path="/shop/:shopId" element={<EditShop />} />
         <Route path="/shop/:shopId/products" element={<ProductsShop />} />
         <Route path="/shop/:shopId/products/create" element={<CreateProduct />} />

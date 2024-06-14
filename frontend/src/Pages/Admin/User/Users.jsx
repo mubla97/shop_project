@@ -78,9 +78,10 @@ const Users = () => {
 
   let columns = [
     { dataField: "id", text: "ID", sort: true },
+    { dataField: "username", text: "Username", sort: true },
     { dataField: "name", text: "Name", sort: true },
+    { dataField: "lastname", text: "Lastname", sort: true },
     { dataField: "email", text: "Email", sort: true },
-    { dataField: "role", text: "Role", sort: true },
     {
       dataField: "Action",
       text: "Action",
@@ -127,14 +128,15 @@ const Users = () => {
 
   return (
     <>
-      <div
+      <div className="mb-4"
         style={{
-          maxWidth: "800px",
+          maxWidth: "1000px",
           margin: "0 auto",
           padding: "20px",
           border: "1px solid #ccc",
           borderRadius: "10px",
           marginTop: "30px",
+          margin
         }}
       >
         <h2>Users</h2>
