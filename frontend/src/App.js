@@ -22,6 +22,9 @@ import Search from './Pages/Search';
 import Users from './Pages/Admin/User/Users';
 import AddUser from './Pages/Admin/User/AddUser';
 import EditUser from './Pages/Admin/User/EditUser';
+import Shops from './Pages/Admin/Shop/Shops';
+import AddShop from './Pages/Admin/Shop/AddShop';
+import EditShopAdmin from './Pages/Admin/Shop/EditShop';
 
 import Unauthorized from './Pages/Admin/Unauthorized';
 import ProtectedRoute from './Components/ProtectedRoute';
@@ -52,10 +55,13 @@ function App() {
       <Route path="/search" element={<Search />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
       <Route element={<ProtectedRoute />}>
-        <Route path="/shop" element={<Shop />} />
         <Route path="/users" element={<Users />} />
         <Route path="/users/create" element={<AddUser />} />
         <Route path="/users/:userId/edit" element={<EditUser />} />
+        <Route path="/shops" element={<Shops />} />
+        <Route path="/shops/create" element={<AddShop />} />
+        <Route path="/shops/:shopId/edit" element={<EditShopAdmin />} />
+        <Route path="/shop" element={<Shop />} />
         <Route path="/shop/:shopId" element={<EditShop />} />
         <Route path="/shop/:shopId/products" element={<ProductsShop />} />
         <Route path="/shop/:shopId/products/create" element={<CreateProduct />} />

@@ -116,4 +116,12 @@ class UserController extends Controller
             return response()->json(['error' => 'An error occurred while deleting user.'], 500);
         }
     }
+
+    public function usersWithoutShop()
+    {
+        // Query para obtener usuarios que no tienen tienda
+        $usersWithoutShop = User::whereDoesntHave('shop')->get();
+
+        return response()->json($usersWithoutShop);
+    }
 }
