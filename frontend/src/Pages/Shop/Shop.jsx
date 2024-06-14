@@ -91,49 +91,77 @@ const Shop = () => {
       <h2>Create Shop</h2>
       <form onSubmit={doShop}>
         <div style={{ marginBottom: '10px' }}>
-          <label>Name:</label>
-          <input type="text" id="name" name="name" value={name} onChange={e => setName(e.target.value)} required 
-          style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-          />
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <label>Phone:</label>
-          <input type="tel" id="phone" name="phone" value={phone} onChange={e => setPhone(e.target.value)} required
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
             style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
           />
         </div>
         <div style={{ marginBottom: '10px' }}>
-          <label>Address:</label>
-          <input type="text" id="address" name="address" value={address} onChange={e => setAddress(e.target.value)} required
+          <label htmlFor="phone">Phone</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
             style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
           />
         </div>
         <div style={{ marginBottom: '10px' }}>
-          <label>Community:</label>
-          <select id="community" name="community" value={community} onChange={handleChange} required 
-            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }} >
-
+          <label htmlFor="address">Address</label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            required
+            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+          />
+        </div>
+        <div style={{ marginBottom: '10px' }}>
+          <label htmlFor="community">Community</label>
+          <select
+            id="community"
+            name="community"
+            value={community}
+            onChange={handleChange}
+            required
+            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+          >
             <option value="" disabled>Select a community</option>
             {autonomousCommunity.map((comunidad, index) => (
               <option key={index} value={comunidad}>{comunidad}</option>
             ))}
-
           </select>
         </div>
         <div style={{ marginBottom: '10px' }}>
-          <label>Postal Code:</label>
-          <input type="number" id="postal_code" name="postal_code" value={postal_code} onChange={e => setPostal_code(e.target.value)} required
+          <label htmlFor="postal_code">Postal Code</label>
+          <input
+            type="number"
+            id="postal_code"
+            name="postal_code"
+            value={postal_code}
+            onChange={(e) => setPostal_code(e.target.value)}
+            required
             style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
           />
         </div>
         <div style={{ marginBottom: '10px' }}>
-          <label>Job Type:</label>
-          <select 
-            id="job" 
-            name="job" 
-            value={job} 
-            onChange={e => setJob(e.target.value)} 
-            required 
+          <label htmlFor="job">Job Type</label>
+          <select
+            id="job"
+            name="job"
+            value={job}
+            onChange={(e) => setJob(e.target.value)}
+            required
             style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
           >
             <option value="" disabled>Select a job type</option>

@@ -2,7 +2,7 @@ import { Card, Button } from "react-bootstrap";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const PAGE_SIZE = 10; // Número de tiendas por página
+const PAGE_SIZE = 10;
 
 const AllShops = ({ shops }) => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const AllShops = ({ shops }) => {
   // Calcular el número total de páginas
   const totalPages = Math.ceil(shops.length / PAGE_SIZE);
 
-  // Función para redirigir a la página de una tienda específica
+
   const redirectToViewShop = (id) => {
     navigate(`/shop/${id}/show`);
   };
@@ -35,17 +35,18 @@ const AllShops = ({ shops }) => {
         {currentShops.map((shop) => (
           <div key={shop.id} className="col">
             <Card className="h-100 shadow-sm mb-3">
-              <Card.Body>
+              <Card.Body className="d-flex flex-column">
                 <Card.Title className="fw-bold">{shop.name}</Card.Title>
-                <Card.Text>{shop.community}</Card.Text>
-                <Button variant="success" onClick={() => redirectToViewShop(shop.id)}>View more</Button>
+                <Card.Text className="text-muted mb-3">{shop.community}</Card.Text>
+                <div className="mt-auto">
+                  <Button variant="success" onClick={() => redirectToViewShop(shop.id)}>View more</Button>
+                </div>
               </Card.Body>
             </Card>
           </div>
         ))}
       </div>
 
-      {/* Mostrar la paginación si hay más de una página */}
       {totalPages > 1 && (
         <nav className="mt-4">
           <ul className="pagination justify-content-center">

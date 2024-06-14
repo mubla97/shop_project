@@ -55,6 +55,7 @@ const Login = () => {
               className="img-fluid" alt="Phone img" />
           </div>
           <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+            <h2>Login</h2>
             <form onSubmit={doLogin}>
               <div className="form-outline mb-4">
                 <label className="form-label" htmlFor="form1Example13">Email</label>
