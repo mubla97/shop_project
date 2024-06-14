@@ -172,9 +172,9 @@ const AddProduct = () => {
           </Form.Control>
         </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Add Product
-        </Button>
+        <button type="submit" disabled={loading} className="btn btn-success btn-lg mt-3">
+          {loading ? 'Adding...' : 'Add Product'}
+        </button>
       </Form>
     </div>
   );

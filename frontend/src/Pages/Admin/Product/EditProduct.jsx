@@ -155,9 +155,9 @@ const EditProduct = () => {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Update Product
-        </Button>
+        <button type="submit"disabled={loading}className="btn btn-success btn-lg mt-3">
+          {loading ? 'Updating...' : 'Update Product'}
+        </button>
       </Form>
     </div>
   );

@@ -15,7 +15,6 @@ const EditShop = () => {
   const [community, setCommunity] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [usersWithoutShop, setUsersWithoutShop] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState('');
   const [shopData, setShopData] = useState(null);
   const { role } = useContext(UserContext);
@@ -71,7 +70,7 @@ const EditShop = () => {
         job,
         postal_code: postalCode,
         community,
-        user_id: selectedUserId // Envía el ID del usuario seleccionado
+        user_id: selectedUserId
       }, {
         withCredentials: true
       });
