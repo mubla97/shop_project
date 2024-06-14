@@ -1,4 +1,3 @@
-// Search.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, Button, Form, Spinner  } from 'react-bootstrap';
@@ -113,6 +112,7 @@ const Search = () => {
                         <Card.Body>
                           <Card.Title>{product.name}</Card.Title>
                           <Card.Text>{product.description}</Card.Text>
+                          <Button variant="primary" onClick={() => redirectToViewShop(product.shop_id)}>View more</Button>
                         </Card.Body>
                       </Card>
                     </div>
