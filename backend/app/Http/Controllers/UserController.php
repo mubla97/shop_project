@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,12 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
         ]);
+
+        $role = Role::where('name', 'user')->first();
+
+        if($role){
+            $user->roles()->attach($role->id);
+        }
 
         return response()->json(['message' => 'User successfully registered', 'user' => $user], 201);
     }
