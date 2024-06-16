@@ -101,7 +101,6 @@ Debe habilitar extensiones de php, una vez instalado. Asegurese de habilitar las
 
 - extension=pdo_mysql
 
-
 ### 4. Iniciar el proyecto
 
 El proyecto contiene docker, simplemente ejecute el comando:
@@ -122,7 +121,9 @@ Acceda al contenedor backend usando el siguiente comando:
 
     docker exec -it nombre_del_contenedor_backend /bin/bash
 
-Ejecuta el comando para obtener la base de datos:
+Ejecuta los siguientes comandos para obtener la base de datos:
+
+    composer install
 
     php artisan migrate:fresh
 
