@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -33,6 +34,12 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
         ]);
+
+        $role = Role::where('name', 'user')->first();
+
+        if($role){
+            $user->roles()->attach($role->id);
+        }
 
         return response()->json(['message' => 'User successfully registered', 'user' => $user], 201);
     }
