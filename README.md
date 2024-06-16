@@ -101,7 +101,6 @@ Debe habilitar extensiones de php, una vez instalado. Asegurese de habilitar las
 
 - extension=pdo_mysql
 
-
 ### 4. Iniciar el proyecto
 
 El proyecto contiene docker, simplemente ejecute el comando:
@@ -112,7 +111,7 @@ Si desea utilizar la aplicación en segundo plano, puede usar:
 
     docker-compose up --build -d
 
-### 4. Migrar la base de datos
+### 5. Migrar la base de datos
 
 Ejecute el siguiente comando para ver sus contenedores de docker:
 
@@ -122,7 +121,9 @@ Acceda al contenedor backend usando el siguiente comando:
 
     docker exec -it nombre_del_contenedor_backend /bin/bash
 
-Ejecuta el comando para obtener la base de datos:
+Ejecuta los siguientes comandos para obtener la base de datos:
+
+    composer install
 
     php artisan migrate:fresh
 
@@ -130,7 +131,7 @@ Si desea obtener datos de prueba ejecute el siguiente comando:
 
     php artisan migrate:fresh --seed
 
-### 5. Acceso a la app
+### 6. Acceso a la app
 
 - Frontend - localhost:3000 (aplicación principal)
 - Backend  - localhost:8200
