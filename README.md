@@ -85,7 +85,9 @@ Añade el .env en la carpeta de backend
 
     ADMIN_USER_PASS=1234
 
-A continuación crearemos la key aleatoria con el siguiente comando:
+A continuación crearemos la key aleatoria con el siguiente comando dentro de backend:
+
+    composer install
 
     php artisan key:generate
 
@@ -121,9 +123,7 @@ Acceda al contenedor backend usando el siguiente comando:
 
     docker exec -it nombre_del_contenedor_backend /bin/bash
 
-Ejecuta los siguientes comandos para obtener la base de datos:
-
-    composer install
+Ejecuta el siguiente comando para obtener la base de datos:
 
     php artisan migrate:fresh
 
