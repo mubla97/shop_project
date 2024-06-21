@@ -89,7 +89,7 @@ const Profile = () => {
                             <MDBCol md="4" className="gradient-custom text-center text-white"
                                 style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}>
                                 <MDBCardImage
-                                    src={userData.avatar ? `http://localhost:8080/storage/${userData.avatar}` : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"}
+                                    src={userData.avatar ? `http://localhost:8080/images/avatars/${userData.avatar}` : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"}
                                     alt={userData.avatar ? "Avatar" : "Default Avatar"}
                                     className="my-5"
                                     style={{ width: '80px' }}

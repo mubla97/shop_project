@@ -1,5 +1,7 @@
 FROM php:8.1-apache
 
+USER root
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
@@ -23,7 +25,7 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
 # Enable Apache mod_rewrite
-RUN a2enmod rewrite
+RUN a2enmod rewrite headers
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -51,7 +53,12 @@ RUN composer install
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www/storage
+    && chmod -R 777 /var/www/storage
+
+# Crear el enlace simbólico para storage
+RUN ln -sfn /var/www/storage/app/public /var/www/public/storage \
+    && chown -R www-data:www-data /var/www/public/storage \
+    && chmod -R 755 /var/www/public/storage
 
 # Expose port 80 and start Apache server
 EXPOSE 80

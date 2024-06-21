@@ -100,7 +100,7 @@ const EditProfile = () => {
                                 <MDBCol md="4" className="gradient-custom text-center text-white"
                                     style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}>
                                     <MDBCardImage
-                                        src={avatar ? `http://localhost:8080/storage/${avatar}` : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"}
+                                        src={avatar ? `http://localhost:8080/images/avatars/${avatar}` : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"}
                                         alt={avatar ? "Avatar" : "Default Avatar"}
                                         className="my-5"
                                         style={{ width: '80px' }}

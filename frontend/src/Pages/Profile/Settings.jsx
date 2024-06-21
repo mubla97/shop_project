@@ -70,7 +70,7 @@ const Settings = () => {
             <div className="settings-card">
                 <div className="settings-card-header">
                     <img
-                        src={avatar ? `http://localhost:8080/storage/${avatar}` : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"}
+                        src={avatar ? `http://localhost:8080/images/avatars/${avatar}` : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"}
                         alt={avatar ? "Avatar" : "Default Avatar"}
                         className="my-5"
                         style={{ width: '80px' }}

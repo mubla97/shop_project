@@ -56,6 +56,14 @@ return [
             'throw' => false,
         ],
 
+        'avatars' => [
+            'driver' => 'local',
+            'root' => public_path('images/avatars'), // Ruta absoluta a la carpeta public/images/avatars
+            'url' => env('APP_URL').'/images/avatars', // URL para acceder a las imágenes
+            'visibility' => 'public',
+        ],
+    
+
     ],
 
     /*

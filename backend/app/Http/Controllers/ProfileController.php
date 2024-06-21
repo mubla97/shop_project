@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -120,24 +121,24 @@ class ProfileController extends Controller
     {
         // Validar la solicitud
         $request->validate([
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validar que sea una imagen
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
+    
         // Obtener el archivo subido
         $file = $request->file('avatar');
-
+    
         // Generar un nombre único para la imagen
         $filename = 'avatar_' . Auth::id() . '.' . $file->getClientOriginalExtension();
-
-        // Guardar la imagen en el almacenamiento publico
-        $path = $file->storeAs('avatars', $filename, 'public');
-
+    
+        // Guardar la imagen en el disco personalizado 'avatars'
+        $path = Storage::disk('avatars')->putFileAs('', $file, $filename);
+    
         // Guardar la ruta de la imagen en el perfil del usuario
         /** @var \App\Models\User $user **/
         $user = Auth::user();
         $user->avatar = $path;
         $user->save();
-
+    
         return response()->json(['message' => 'Imagen subida con éxito', 'path' => $path], 200);
     }
 }
