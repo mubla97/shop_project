@@ -38,7 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/profile/upload-avatar', [ProfileController::class, 'upload']);
     Route::get('/shop/{id}', [ShopController::class, 'show']);
     Route::get('/shop/{id}/show', [ShopController::class, 'showPublic']);
-    Route::put('/shop/{id}', [ShopController::class, 'update']);
+    Route::post('/shop/{id}', [ShopController::class, 'update']);
     Route::delete('/shop/{id}', [ShopController::class, 'destroy'])->name('shop.destroy');
     Route::get('/shop/{shopId}/products', [ProductController::class, 'getProductsByShop']);
     Route::get('/shop/{shopId}/products/show', [ProductController::class, 'getProductsByShopPublic']);

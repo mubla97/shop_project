@@ -13,15 +13,15 @@ const EditShop = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [image, setImage] = useState(null); 
+  const [image, setImage] = useState(null);
   const [display, setDisplay] = useState(null);
   const navigate = useNavigate();
   const { shopId } = useParams();
 
   const autonomousCommunity = [
-    "Andalucía", "Aragón", "Asturias", "Islas Baleares", "Canarias", 
-    "Cantabria", "Castilla-La Mancha", "Castilla y León", "Cataluña", 
-    "Extremadura", "Galicia", "Madrid", "Murcia", "Navarra", 
+    "Andalucía", "Aragón", "Asturias", "Islas Baleares", "Canarias",
+    "Cantabria", "Castilla-La Mancha", "Castilla y León", "Cataluña",
+    "Extremadura", "Galicia", "Madrid", "Murcia", "Navarra",
     "País Vasco", "La Rioja", "Comunidad Valenciana"
   ];
 
@@ -60,7 +60,6 @@ const EditShop = () => {
     setError('');
 
     try {
-      // Crear un FormData para enviar todos los datos incluyendo la imagen
       const formData = new FormData();
       formData.append('name', name);
       formData.append('phone', phone);
@@ -69,15 +68,16 @@ const EditShop = () => {
       formData.append('postal_code', postal_code);
       formData.append('job', job);
       if (image) {
-        formData.append('shopImage', image);
+        formData.append('shopImage', image); // Append the image file if selected
       }
 
-      const response = await axios.put(`http://localhost:8080/shop/${shopId}`, formData, {
+      const response = await axios.post(`http://localhost:8080/shop/${shopId}`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
         },
         withCredentials: true,
       });
+
       console.log(response.data);
       navigate("/shop");
     } catch (err) {
@@ -115,6 +115,11 @@ const EditShop = () => {
       setDisplay(reader.result);
     };
     reader.readAsDataURL(file);
+  };
+
+  const openFileInput = () => {
+    const fileInput = document.getElementById('imageInput');
+    fileInput.click();
   };
 
   if (loading) {
@@ -212,107 +217,118 @@ const EditShop = () => {
               required
               style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
             >
-              <option value="" disabled>Select a job type</option>
-              <option value="Restaurant">Restaurant</option>
-              <option value="Clothing Store">Clothing Store</option>
-              <option value="Supermarket">Supermarket</option>
-              <option value="Cafeteria">Cafeteria</option>
-              <option value="Bookstore">Bookstore</option>
-              <option value="Pharmacy">Pharmacy</option>
-              <option value="Hardware Store">Hardware Store</option>
-              <option value="Jewelry Store">Jewelry Store</option>
-              <option value="Bakery">Bakery</option>
-              <option value="Flower Shop">Flower Shop</option>
-              <option value="Hair Salon">Hair Salon</option>
-              <option value="Beauty Salon">Beauty Salon</option>
-              <option value="Electronics Store">Electronics Store</option>
-              <option value="Pet Store">Pet Store</option>
-              <option value="Sporting Goods Store">Sporting Goods Store</option>
-              <option value="Furniture Store">Furniture Store</option>
-              <option value="Mechanic Workshop">Mechanic Workshop</option>
-              <option value="Toy Store">Toy Store</option>
-              <option value="Pastry Shop">Pastry Shop</option>
-              <option value="Ice Cream Shop">Ice Cream Shop</option>
-              <option value="Tobacco Shop">Tobacco Shop</option>
-              <option value="Greengrocery">Greengrocery</option>
-              <option value="Shoe Store">Shoe Store</option>
-              <option value="Optics">Optics</option>
-              <option value="Laundry">Laundry</option>
-              <option value="Photography Studio">Photography Studio</option>
-              <option value="Travel Agency">Travel Agency</option>
-              <option value="Stationery Store">Stationery Store</option>
-              <option value="Video Store">Video Store</option>
-              <option value="Music Store">Music Store</option>
-            </select>
-          </div>
-            <div style={{ marginBottom: '10px' }}>
-              <label htmlFor="shopImage">Shop Image</label>
-              <input
-                type="file"
-                id="shopImage"
-                name="shopImage"
-                accept="image/*"
-                onChange={changeHandler}
-                style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-              />
+                <option value="" disabled>Select a job type</option>
+                <option value="Restaurant">Restaurant</option>
+                <option value="Clothing Store">Clothing Store</option>
+                <option value="Supermarket">Supermarket</option>
+                <option value="Cafeteria">Cafeteria</option>
+                <option value="Bookstore">Bookstore</option>
+                <option value="Pharmacy">Pharmacy</option>
+                <option value="Hardware Store">Hardware Store</option>
+                <option value="Jewelry Store">Jewelry Store</option>
+                <option value="Bakery">Bakery</option>
+                <option value="Flower Shop">Flower Shop</option>
+                <option value="Hair Salon">Hair Salon</option>
+                <option value="Beauty Salon">Beauty Salon</option>
+                <option value="Electronics Store">Electronics Store</option>
+                <option value="Pet Store">Pet Store</option>
+                <option value="Sporting Goods Store">Sporting Goods Store</option>
+                <option value="Furniture Store">Furniture Store</option>
+                <option value="Mechanic Workshop">Mechanic Workshop</option>
+                <option value="Toy Store">Toy Store</option>
+                <option value="Pastry Shop">Pastry Shop</option>
+                <option value="Ice Cream Shop">Ice Cream Shop</option>
+                <option value="Tobacco Shop">Tobacco Shop</option>
+                <option value="Greengrocery">Greengrocery</option>
+                <option value="Shoe Store">Shoe Store</option>
+                <option value="Optics">Optics</option>
+                <option value="Laundry">Laundry</option>
+                <option value="Photography Studio">Photography Studio</option>
+                <option value="Travel Agency">Travel Agency</option>
+                <option value="Stationery Store">Stationery Store</option>
+                <option value="Video Store">Video Store</option>
+                <option value="Music Store">Music Store</option>
+               </select>
+             </div>
+             <div style={{ marginBottom: '10px', textAlign: 'center' }}>
+              <label htmlFor="image">Shop Image</label>
+              <div>
+                <input
+                  type="file"
+                  id="imageInput"
+                  name="image"
+                  accept="image/*"
+                  onChange={changeHandler}
+                  style={{ display: 'none' }}
+                />
+                <button
+                  type="button"
+                  onClick={openFileInput}
+                  className="btn btn-primary"
+                  style={{ minWidth: '150px', padding: '8px', margin: '5px' }}
+                >
+                  Add Image
+                </button>
+              </div>
               {display && (
                 <div style={{ marginTop: '10px' }}>
                   <img src={display} alt="Shop" style={{ maxWidth: '100%', maxHeight: '200px' }} />
                 </div>
               )}
             </div>
-          <button type="submit" className="btn btn-success btn-lg" style={{ minWidth: '150px', padding: '8px', margin: '5px' }}>
-            Save Changes
-          </button>
-        </form>
-      </div>
+             <button type="submit" className="btn btn-success btn-lg" style={{ minWidth: '150px', padding: '8px', margin: '5px' }}>
+               Save Changes
+             </button>
+           </form>
+         </div>
 
-      <div
-        style={{
-          maxWidth: '800px',
-          margin: '0 auto',
-          padding: '20px',
-          border: '1px solid #ccc',
-          borderRadius: '10px',
-          marginTop: '30px',
-        }}
-        className="mb-4"
-      >
-        <h2>Settings</h2>
-        <button
-          type="button"
-          className="btn btn-primary btn-lg"
-          onClick={redirectToProducts}
-          style={{ minWidth: '150px', padding: '8px', margin: '5px' }}
-        >
-          Products
-        </button>
-        <button
-          type="button"
-          className="btn btn-danger btn-lg"
-          onClick={() => setShowModal(true)}
-          style={{ minWidth: '150px', padding: '8px', margin: '5px' }}
-        >
-          Delete Shop
-        </button>
-      </div>
+         <div
+           style={{
+             maxWidth: '800px',
+             margin: '0 auto',
+             padding: '20px',
+             border: '1px solid #ccc',
+             borderRadius: '10px',
+             marginTop: '30px',
+           }}
+           className="mb-4"
+         >
+           <h2>Settings</h2>
+           <button
+             type="button"
+             className="btn btn-primary btn-lg"
+             onClick={redirectToProducts}
+             style={{ minWidth: '150px', padding: '8px', margin: '5px' }}
+           >
+             Products
+           </button>
+           <button
+             type="button"
+             className="btn btn-danger btn-lg"
+             onClick={() => setShowModal(true)}
+             style={{ minWidth: '150px', padding: '8px', margin: '5px' }}
+           >
+             Delete Shop
+           </button>
+         </div>
 
-      <Modal show={showModal} onHide={handleCloseModal} aria-labelledby="delete-modal-title">
-        <Modal.Header closeButton>
-          <Modal.Title id="delete-modal-title">Delete Shop</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this shop?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Cancel
-          </Button>
-          <Button variant="danger" onClick={deleteShop}>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
-};
+         <Modal show={showModal} onHide={handleCloseModal} aria-labelledby="delete-modal-title">
+           <Modal.Header closeButton>
+             <Modal.Title id="delete-modal-title">Delete Shop</Modal.Title>
+           </Modal.Header>
+           <Modal.Body>Are you sure you want to delete this shop?</Modal.Body>
+           <Modal.Footer>
+             <Button variant="secondary" onClick={handleCloseModal}>
+               Cancel
+             </Button>
+             <Button variant="danger" onClick={deleteShop}>
+               Delete
+             </Button>
+           </Modal.Footer>
+         </Modal>
+       </>
+     );
+   };
 
-export default EditShop;
+   export default EditShop;
+

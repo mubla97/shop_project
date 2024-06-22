@@ -23,26 +23,8 @@ const Shop = () => {
   ];
 
   useEffect(() => {
-    const checkShop = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/hasShop', {
-          withCredentials: true,
-        });
-        if (response.data.hasShop) {
-          console.log(response.data);
-          navigate(`/shop/${response.data.shopId}`);
-        } else {
-          console.log('No existe una tienda');
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error('Error fetching shop status:', error);
-        setLoading(false);
-      }
-    };
-
-    checkShop();
-  }, [navigate]);
+    setLoading(false); // Simular que se ha cargado la página
+  }, []);
 
   const doShop = async (e) => {
     e.preventDefault();
@@ -220,20 +202,30 @@ const Shop = () => {
             <option value="Health Food Store">Health Food Store</option>
           </select>
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '10px', textAlign: 'center' }}>
           <label htmlFor="image">Upload Shop Image</label>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            accept="image/*"
-            onChange={changeHandler}
-            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-          />
+          <div>
+            <input
+              type="file"
+              id="imageInput"
+              name="image"
+              accept="image/*"
+              onChange={changeHandler}
+              style={{ display: 'none' }}
+            />
+            <button
+              type="button"
+              onClick={() => document.getElementById('imageInput').click()}
+              className="btn btn-primary"
+              style={{ minWidth: '150px', padding: '8px', margin: '5px' }}
+            >
+              Add Image
+            </button>
+          </div>
         </div>
         {display && (
-          <div style={{ marginBottom: '10px' }}>
-            <img src={display} alt="Shop Preview" style={{ width: '100%', maxHeight: '300px', objectFit: 'cover' }} />
+          <div style={{ marginBottom: '10px', textAlign: 'center' }}>
+            <img src={display} alt="Shop Preview" style={{ maxWidth: '100%', maxHeight: '300px', objectFit: 'cover' }} />
           </div>
         )}
         <button type="submit" style={{ width: '100%', padding: '10px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '5px' }}>Create Shop</button>
