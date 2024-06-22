@@ -50,7 +50,27 @@ const News = ({ news }) => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button variant="success" size="small" onClick={() => redirectToViewShop(n.id)}>View more</Button>
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => redirectToViewShop(n.id)}
+                  sx={{
+                    backgroundColor: '#4CAF50',
+                    color: '#fff',
+                    borderRadius: '20px',
+                    padding: '8px 16px',
+                    fontFamily: 'Arial, sans-serif',
+                    fontWeight: 'bold',
+                    textTransform: 'none',
+                    transition: '0.3s',
+                    '&:hover': {
+                      backgroundColor: '#45A049',
+                      boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
+                    },
+                  }}
+                >
+                  View More
+                </Button>
               </CardActions>
             </Card>
           </div>
