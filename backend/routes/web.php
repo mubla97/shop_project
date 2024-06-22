@@ -29,6 +29,7 @@ Route::get('product/all', [ProductController::class, 'all']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/roles', [UserController::class, 'getRoles']);
     Route::post('/shop', [ShopController::class, 'store']);
+    Route::post('/shop/upload-image', [ShopController::class, 'uploadImage']);
     Route::get('/hasShop', [ShopController::class, 'hasShop']);
     Route::get('/profile', [ProfileController::class, 'getProfile']);
     Route::put('/profile/edit', [ProfileController::class, 'update']);

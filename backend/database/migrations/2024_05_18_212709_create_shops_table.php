@@ -18,6 +18,7 @@ return new class() extends Migration {
             $table->string('community');
             $table->string('postal_code');
             $table->string('job');
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

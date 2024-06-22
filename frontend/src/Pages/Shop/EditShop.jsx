@@ -13,6 +13,8 @@ const EditShop = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [image, setImage] = useState(null); 
+  const [display, setDisplay] = useState(null);
   const navigate = useNavigate();
   const { shopId } = useParams();
 
@@ -58,14 +60,22 @@ const EditShop = () => {
     setError('');
 
     try {
-      const response = await axios.put(`http://localhost:8080/shop/${shopId}`, {
-        name,
-        phone,
-        address,
-        community,
-        postal_code,
-        job,
-      }, {
+      // Crear un FormData para enviar todos los datos incluyendo la imagen
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('phone', phone);
+      formData.append('address', address);
+      formData.append('community', community);
+      formData.append('postal_code', postal_code);
+      formData.append('job', job);
+      if (image) {
+        formData.append('shopImage', image);
+      }
+
+      const response = await axios.put(`http://localhost:8080/shop/${shopId}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
         withCredentials: true,
       });
       console.log(response.data);
@@ -94,15 +104,28 @@ const EditShop = () => {
     setShowModal(false);
   };
 
+  const changeHandler = (e) => {
+    if (!e.target.files[0]) return;
+    setImage(e.target.files[0]);
+
+    // Mostrar la previsualización de la imagen
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setDisplay(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
   if (loading) {
     return (
-        <div className="mt-4">
-            <div className="text-center">
-                <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-                </Spinner>
-            </div>
+      <div className="mt-4">
+        <div className="text-center">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
         </div>
+      </div>
     );
   }
 
@@ -222,6 +245,22 @@ const EditShop = () => {
               <option value="Music Store">Music Store</option>
             </select>
           </div>
+            <div style={{ marginBottom: '10px' }}>
+              <label htmlFor="shopImage">Shop Image</label>
+              <input
+                type="file"
+                id="shopImage"
+                name="shopImage"
+                accept="image/*"
+                onChange={changeHandler}
+                style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+              />
+              {display && (
+                <div style={{ marginTop: '10px' }}>
+                  <img src={display} alt="Shop" style={{ maxWidth: '100%', maxHeight: '200px' }} />
+                </div>
+              )}
+            </div>
           <button type="submit" className="btn btn-success btn-lg" style={{ minWidth: '150px', padding: '8px', margin: '5px' }}>
             Save Changes
           </button>
@@ -237,6 +276,7 @@ const EditShop = () => {
           borderRadius: '10px',
           marginTop: '30px',
         }}
+        className="mb-4"
       >
         <h2>Settings</h2>
         <button

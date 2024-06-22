@@ -16,6 +16,7 @@ class Shop extends Model
         'job',
         'postal_code',
         'community',
+        'image',
         'user_id',
     ];
 

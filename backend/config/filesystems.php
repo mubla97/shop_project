@@ -58,10 +58,17 @@ return [
 
         'avatars' => [
             'driver' => 'local',
-            'root' => public_path('images/avatars'), // Ruta absoluta a la carpeta public/images/avatars
-            'url' => env('APP_URL').'/images/avatars', // URL para acceder a las imágenes
+            'root' => public_path('images/avatars'), 
+            'url' => env('APP_URL').'/images/avatars',
             'visibility' => 'public',
         ],
+        
+        'shop_images' => [
+        'driver' => 'local',
+        'root' => public_path('images/shop_images'),
+        'url' => env('APP_URL').'/images/shop_images',
+        'visibility' => 'public',
+    ],
     
 
     ],

@@ -10,8 +10,10 @@ const Shop = () => {
   const [community, setCommunity] = useState('');
   const [postal_code, setPostal_code] = useState('');
   const [job, setJob] = useState('');
-  const navigate = useNavigate();
+  const [image, setImage] = useState(null);
+  const [display, setDisplay] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const autonomousCommunity = [
     "Andalucía", "Aragón", "Asturias", "Islas Baleares", "Canarias", 
@@ -44,30 +46,52 @@ const Shop = () => {
 
   const doShop = async (e) => {
     e.preventDefault();
-
     setLoading(true);
 
-    axios.post('http://localhost:8080/shop', {
-      name: name,
-      phone: phone,
-      address: address,
-      community: community,
-      postal_code: postal_code,
-      job: job,
-    }, {
-      withCredentials: true,
-    })
-    .then(response => {
-      console.log(response.data);
-      window.location.reload();
-    })
-    .catch(err => {
+    try {
+      // Crear un FormData para enviar todos los datos
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('phone', phone);
+      formData.append('address', address);
+      formData.append('community', community);
+      formData.append('postal_code', postal_code);
+      formData.append('job', job);
+      if (image) {
+        formData.append('shopImage', image);
+      }
+
+      // Enviar todos los datos al servidor
+      const response = await axios.post('http://localhost:8080/shop', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        withCredentials: true
+      });
+
+      console.log('Shop created successfully:', response.data);
+
+      // Redirigir a la página de la tienda creada o actualizar la página
+      navigate(`/shop/${response.data.shop.id}`);
+    } catch (err) {
       console.error(err);
-      alert("Error to create shop: " + (err.response?.data?.message || err.message));
-    })
-    .finally(() => {
+      alert("Error creating shop: " + (err.response?.data?.message || err.message));
+    } finally {
       setLoading(false);
-    });
+    }
+  };
+
+  const changeHandler = (e) => {
+    if (!e.target.files[0]) return;
+    setImage(e.target.files[0]);
+
+    // Mostrar la previsualización de la imagen
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setDisplay(reader.result);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleChange = (e) => {
@@ -76,13 +100,13 @@ const Shop = () => {
 
   if (loading) {
     return (
-        <div className="mt-4">
-            <div className="text-center">
-                <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-                </Spinner>
-            </div>
+      <div className="mt-4">
+        <div className="text-center">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
         </div>
+      </div>
     );
   }
 
@@ -189,15 +213,30 @@ const Shop = () => {
             <option value="Greengrocery">Greengrocery</option>
             <option value="Shoe Store">Shoe Store</option>
             <option value="Optics">Optics</option>
-            <option value="Laundry">Laundry</option>
-            <option value="Photography Studio">Photography Studio</option>
             <option value="Travel Agency">Travel Agency</option>
-            <option value="Stationery Store">Stationery Store</option>
-            <option value="Video Store">Video Store</option>
-            <option value="Music Store">Music Store</option>
+            <option value="Photography Studio">Photography Studio</option>
+            <option value="Laundry">Laundry</option>
+            <option value="Dry Cleaner">Dry Cleaner</option>
+            <option value="Health Food Store">Health Food Store</option>
           </select>
         </div>
-        <button type="submit" style={{ padding: '10px 20px', backgroundColor: '#28a745', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Create shop</button>
+        <div style={{ marginBottom: '10px' }}>
+          <label htmlFor="image">Upload Shop Image</label>
+          <input
+            type="file"
+            id="image"
+            name="image"
+            accept="image/*"
+            onChange={changeHandler}
+            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+          />
+        </div>
+        {display && (
+          <div style={{ marginBottom: '10px' }}>
+            <img src={display} alt="Shop Preview" style={{ width: '100%', maxHeight: '300px', objectFit: 'cover' }} />
+          </div>
+        )}
+        <button type="submit" style={{ width: '100%', padding: '10px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '5px' }}>Create Shop</button>
       </form>
     </div>
   );
