@@ -3,6 +3,7 @@ import { Alert, Spinner } from "react-bootstrap";
 import axios from "axios";
 import News from "./News"; 
 import AllShops from "./AllShops";
+import { colors } from "@mui/material";
 
 const Index = () => {
     const [shops, setShops] = useState([]);
@@ -34,7 +35,7 @@ const Index = () => {
 
     if (loading) {
         return (
-            <div className="mt-4">
+            <div className="mt-4" style={{ backgroundColor: 'white' }}>
                 <div className="text-center">
                     <Spinner animation="border" role="status">
                     <span className="visually-hidden">Loading...</span>
@@ -45,7 +46,7 @@ const Index = () => {
     }
 
     return (
-        <div className="container mt-4">
+        <div className="container">
             {error && (
                 <Alert variant="danger">
                     {error}

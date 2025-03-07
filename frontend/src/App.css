@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #343a40;
 }
 
 .App-logo {
@@ -159,20 +160,20 @@ background: #eee;
 
 /* ShopDetails */
 .card-header {
-  background-color: #f8f9fa; /* Color de fondo para el encabezado de la tarjeta */
+  background-color: #000000; /* Color de fondo para el encabezado de la tarjeta */
 }
 
 .card-body {
-  background-color: #fff; /* Color de fondo para el cuerpo de la tarjeta */
+  background-color: #000000; /* Color de fondo para el cuerpo de la tarjeta */
 }
 
 .card-title {
-  color: #343a40; /* Color del título de la tarjeta */
+  color: #ffffff; /* Color del título de la tarjeta */
   font-weight: bold; /* Texto en negrita para el título */
 }
 
 .card-text {
-  color: #6c757d; /* Color del texto normal de la tarjeta */
+  color: #f4f6f8; /* Color del texto normal de la tarjeta */
 }
 
 .card-body {

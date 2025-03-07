@@ -3,7 +3,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 
 const NavIndex = () => {
   return (
-    <Navbar collapseOnSelect expand="sm" variant="dark" style={{ backgroundColor: 'green' }}>
+    <Navbar collapseOnSelect expand="sm" variant="dark" style={{ backgroundColor: 'black' }}>
       <div className="container-fluid">
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

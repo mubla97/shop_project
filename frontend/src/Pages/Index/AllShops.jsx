@@ -31,7 +31,7 @@ const AllShops = ({ shops }) => {
 
   return (
     <Container className="mt-4">
-      <Typography variant="h4" className="mb-4">All Shops</Typography>
+      <Typography variant="h4" className="mb-4" style={{ color: 'white' }}>All Shops</Typography>
       <Grid container spacing={4}>
         {currentShops.map((shop) => (
           <Grid item key={shop.id} xs={12} sm={6} md={4} lg={3}>
@@ -41,9 +41,11 @@ const AllShops = ({ shops }) => {
                 height: '100%',
                 display: 'flex',
                 flexDirection: 'column',
-                border: '2px solid #000',
+                border: '3px solid #fff',
                 borderRadius: '10px',
                 boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.25)',
+                backgroundColor: 'black',
+                color:'white',
               }}
             >
               <CardMedia
@@ -53,10 +55,10 @@ const AllShops = ({ shops }) => {
                 title="Shop Image"
               />
               <CardContent sx={{ flexGrow: 1 }}>
-                <Typography gutterBottom variant="h5" component="div" className="fw-bold">
+                <Typography gutterBottom variant="h5" component="div" className="fw-bold" style={{color:"white"}}>
                   {shop.name}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" style={{color:"white"}}>
                   {shop.community}
                 </Typography>
               </CardContent>
@@ -66,8 +68,8 @@ const AllShops = ({ shops }) => {
                   size="small"
                   onClick={() => redirectToViewShop(shop.id)}
                   sx={{
-                    backgroundColor: '#4CAF50',
-                    color: '#fff',
+                    backgroundColor: '#fff',
+                    color: '#000',
                     borderRadius: '20px',
                     padding: '8px 16px',
                     fontFamily: 'Arial, sans-serif',
@@ -75,7 +77,7 @@ const AllShops = ({ shops }) => {
                     textTransform: 'none',
                     transition: '0.3s',
                     '&:hover': {
-                      backgroundColor: '#45A049',
+                      backgroundColor: '#aaaaaa',
                       boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
                     },
                   }}
@@ -90,7 +92,7 @@ const AllShops = ({ shops }) => {
 
       {totalPages > 1 && (
         <Pagination
-          className="mt-4 mb-4"
+          className="mt-4 pb-4"
           count={totalPages}
           page={currentPage}
           onChange={(event, page) => setCurrentPage(page)}

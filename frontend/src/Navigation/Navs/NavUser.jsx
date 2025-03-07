@@ -11,7 +11,7 @@ const NavUser = () => {
     };
 
     return (
-        <Navbar collapseOnSelect expand="sm" variant="dark" style={{ backgroundColor: 'green' }}>
+        <Navbar collapseOnSelect expand="sm" variant="dark" style={{ backgroundColor: 'black' }}>
             <div className="container-fluid ml-5">
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="Navbar">

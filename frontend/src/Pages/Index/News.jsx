@@ -15,8 +15,8 @@ const News = ({ news }) => {
   };
 
   return (
-    <div className="container mt-4">
-      <h2 className="mb-4">Last shops</h2>
+    <div className="container">
+       <Typography variant="h4" className="mb-4 pt-4" style={{ color: 'white' }}>Last Shops</Typography>
       <div
         className="d-flex overflow-auto"
         style={{ height: '420px', overflowY: 'hidden', paddingBottom: '4px' }}
@@ -29,9 +29,11 @@ const News = ({ news }) => {
                 height: '100%',
                 display: 'flex',
                 flexDirection: 'column',
-                border: '2px solid #000',
+                border: '3px solid #fff',
                 borderRadius: '10px',
                 boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.25)',
+                backgroundColor: 'black',
+                color:'white',
               }}
               className="shadow-sm"
             >
@@ -42,10 +44,10 @@ const News = ({ news }) => {
                 title="Shop Image"
               />
               <CardContent sx={{ flexGrow: 1 }}>
-                <Typography gutterBottom variant="h5" component="div" className="fw-bold">
+                <Typography gutterBottom variant="h5" component="div" className="fw-bold" style={{color:"white"}}>
                   {n.name}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" style={{color:"white"}}>
                   {n.community}
                 </Typography>
               </CardContent>
@@ -55,8 +57,8 @@ const News = ({ news }) => {
                   size="small"
                   onClick={() => redirectToViewShop(n.id)}
                   sx={{
-                    backgroundColor: '#4CAF50',
-                    color: '#fff',
+                    backgroundColor: '#fff',
+                    color: '#000',
                     borderRadius: '20px',
                     padding: '8px 16px',
                     fontFamily: 'Arial, sans-serif',
@@ -64,7 +66,7 @@ const News = ({ news }) => {
                     textTransform: 'none',
                     transition: '0.3s',
                     '&:hover': {
-                      backgroundColor: '#45A049',
+                      backgroundColor: '#aaaaaa',
                       boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
                     },
                   }}
