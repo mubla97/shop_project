@@ -239,3 +239,9 @@ background: #eee;
   backdrop-filter: saturate(200%) blur(25px);
 }
 
+.container-full-height {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Alinea contenido verticalmente si es necesario */
+}
