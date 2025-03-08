@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Alert } from "react-bootstrap"; 
+//import { Alert } from "react-bootstrap"; 
 import Button from '@mui/material/Button';
 import {
-  MDBBtn,
   MDBContainer,
   MDBRow,
   MDBCol,
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBIcon,
   MDBSpinner,
 } from 'mdb-react-ui-kit';
 
@@ -120,7 +118,7 @@ const Register = () => {
 
         <MDBCol md='6' className='position-relative'>
           <div id="radius-shape-1" className="position-absolute rounded-circle shadow-5-strong"></div>
-          <div id="radius-shape-2" className="position-absolute shadow-5-strong"></div>
+          <div id="radius-shape-2" className="position-absolute rounded-circle shadow-5-strong"></div>
 
           <MDBCard className='my-5 bg-glass'>
             <MDBCardBody className='p-5'>

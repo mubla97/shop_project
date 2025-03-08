@@ -4,6 +4,18 @@ import axios from "axios";
 import News from "./News"; 
 import AllShops from "./AllShops";
 import { colors } from "@mui/material";
+import {
+    MDBBtn,
+    MDBContainer,
+    MDBRow,
+    MDBCol,
+    MDBCard,
+    MDBCardBody,
+    MDBInput,
+    MDBCheckbox,
+    MDBIcon
+  } 
+  from 'mdb-react-ui-kit';
 
 const Index = () => {
     const [shops, setShops] = useState([]);
@@ -46,19 +58,26 @@ const Index = () => {
     }
 
     return (
-        <div className="container">
+        <MDBContainer fluid className='background-radial-gradient overflow-hidden container-full-height'>
             {error && (
                 <Alert variant="danger">
                     {error}
                 </Alert>
             )}
             {!error && (
-                <>
+                <MDBRow>
+                 <MDBCol className='position-relative'>
+                    <div id="radius-shape-1" className="position-absolute rounded-circle shadow-5-strong"></div>
+                    <div id="radius-shape-2" className="position-absolute rounded-circle shadow-5-strong"></div>
                     <News news={news} /> 
                     <AllShops shops={shops} /> 
-                </>
+                </MDBCol>
+                </MDBRow>
             )}
-        </div>
+                  
+
+        </MDBContainer>
+        
     );
 };
 
