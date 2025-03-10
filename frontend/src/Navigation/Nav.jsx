@@ -10,7 +10,7 @@ const Nav = () => {
 
   if (loading) {
     return (
-          <div className="mt-4">
+          <div className="p-3" style={{backgroundColor:"black", color:"white"}}>
               <div className="text-center">
                   <strong>Loading...</strong>
               </div>

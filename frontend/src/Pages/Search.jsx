@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, Button, Form, Spinner } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
+import Typography from '@mui/material/Typography';
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+} 
+from 'mdb-react-ui-kit';
+
 
 const Search = () => {
   const [query, setQuery] = useState('');
@@ -50,79 +58,104 @@ const Search = () => {
   }, [query, searchType, shops, products]);
 
   return (
-    <div className="container mt-4">
-      <Form>
-        <Form.Group controlId="searchType" className="mb-3">
-          <Form.Label>Search Type</Form.Label>
-          <Form.Control
-            as="select"
-            value={searchType}
-            onChange={(e) => setSearchType(e.target.value)}
-          >
-            <option value="shops">Shops</option>
-            <option value="products">Products</option>
-          </Form.Control>
-        </Form.Group>
+    <MDBContainer fluid className='background-radial-gradient overflow-hidden container-full-height'>
+      <MDBRow>
+        
+        <div className="mt-4">
+          {isLoading ? (
+            <div className="text-center">
+              <Spinner animation="border" role="status" variant="light">
+                <span className="visually-hidden" >Loading...</span>
+              </Spinner>
+            </div>
+          ) : (
+            <>
+                <Form>
+                  <Form.Group controlId="searchType" className="mb-3" style={{ position: 'relative', zIndex: 10 }}>
+                    <Typography variant="h4" className="m-4" style={{ color: 'white' }}>Select Type</Typography>
+                    <Form.Control
+                      as="select"
+                      value={searchType}
+                      onChange={(e) => setSearchType(e.target.value)}
+                    >
+                      <option value="shops">Shops</option>
+                      <option value="products">Products</option>
+                    </Form.Control>
+                  </Form.Group>
 
-        <Form.Group controlId="search">
-          <Form.Control
-            type="text"
-            placeholder={`Search for ${searchType}...`}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            disabled={isLoading}
-          />
-        </Form.Group>
-      </Form>
+                  <Form.Group controlId="search" style={{ position: 'relative', zIndex: 10 }}>
+                    <Form.Control
+                      type="text"
+                      placeholder={`Search for ${searchType}...`}
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      disabled={isLoading}
+                    />
+                  </Form.Group>
+                </Form>
+                <MDBCol className='position-relative'>
+                
 
-      <div className="mt-4">
-        {isLoading ? (
-          <div className="text-center">
-            <Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </div>
-        ) : (
-          <>
-            {searchType === 'shops' && (
-              <>
-                <h4>Shops</h4>
-                <div className="d-flex flex-wrap">
-                  {filteredShops.map((shop) => (
-                    <Card key={shop.id} style={{ width: "400px" }} className="shadow-sm mb-3">
-                      <Card.Body>
-                        <Card.Title className="fw-bold">{shop.name}</Card.Title>
-                        <Card.Text>{shop.community}</Card.Text>
-                        <Button variant="success" onClick={() => redirectToViewShop(shop.id)}>View more</Button>
-                      </Card.Body>
-                    </Card>
-                  ))}
-                </div>
-              </>
-            )}
+                  {searchType === 'shops' && (
+                <>
+                
+                  <Typography variant="h4" className="m-4" style={{ color: 'white' }}>Shops</Typography>
+                  <div className="d-flex flex-wrap justify-content-center">
+                  <div id="radius-shape-1" className="position-absolute rounded-circle shadow-5-strong"></div>
+                  <div id="radius-shape-2" className="position-absolute rounded-circle shadow-5-strong"></div>
+                    {filteredShops.map((shop) => (
+                      <Card key={shop.id} style={{ width: "400px" }} className="shadow-sm m-3">
+                        <Card.Body>
+                          <Card.Title className="fw-bold">{shop.name}</Card.Title>
+                          <Card.Text>{shop.community}</Card.Text>
+                          <Button
+                            className="w-100 mb-4 d-flex justify-content-center align-items-center"
+                            style={{
+                              height: '50px',
+                              padding: '0.5rem',
+                              position: 'relative',
+                              backgroundColor: '#fff', // blanco personalizado
+                              borderColor: '#fff', // Asegura que el borde sea del mismo color
+                              color: '#000', // Color del texto negro
+                              borderRadius: '0.25rem', // Opcional: bordes redondeados
+                              fontWeight: 'bold'
+                            }}
+                            onClick={() => redirectToViewShop(shop.id)}
+                          >
+                          <div className="w-100 d-flex justify-content-center align-items-center ">View more</div>
+                         </Button>
+                        </Card.Body>
+                      </Card>
+                    ))}
+                  </div>
+                </>
+              )}
 
-            {searchType === 'products' && (
-              <>
-                <h4>Products</h4>
-                <div className="d-flex flex-wrap justify-content-center">
-                  {filteredProducts.map((product) => (
-                    <Card key={product.id} style={{ width: "400px", margin: "10px" }} className="shadow-sm">
-                      <Card.Body>
-                        <Card.Title>{product.name}</Card.Title>
-                        <Card.Text>{product.description}</Card.Text>
-                      </Card.Body>
-                      <div className="card-footer d-flex justify-content-center">
-                        <Button variant="primary" onClick={() => redirectToViewShop(product.shop_id)}>View shop</Button>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              </>
-            )}
-          </>
-        )}
-      </div>
-    </div>
+              {searchType === 'products' && (
+                <>
+                  <Typography variant="h4" className="m-4" style={{ color: 'white' }}>Products</Typography>
+                  <div className="d-flex flex-wrap justify-content-center">
+                    {filteredProducts.map((product) => (
+                      <Card key={product.id} style={{ width: "400px", margin: "10px" }} className="shadow-sm">
+                        <Card.Body>
+                          <Card.Title>{product.name}</Card.Title>
+                          <Card.Text>{product.description}</Card.Text>
+                        </Card.Body>
+                        <div className="card-footer d-flex justify-content-center">
+                          <Button variant="primary" onClick={() => redirectToViewShop(product.shop_id)}>View shop</Button>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </>
+              )}
+                      </MDBCol>
+            </>
+          )}
+        </div>
+
+      </MDBRow>
+    </MDBContainer>
   );
 };
 

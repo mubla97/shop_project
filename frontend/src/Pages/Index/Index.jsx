@@ -3,17 +3,10 @@ import { Alert, Spinner } from "react-bootstrap";
 import axios from "axios";
 import News from "./News"; 
 import AllShops from "./AllShops";
-import { colors } from "@mui/material";
 import {
-    MDBBtn,
     MDBContainer,
     MDBRow,
     MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBInput,
-    MDBCheckbox,
-    MDBIcon
   } 
   from 'mdb-react-ui-kit';
 
@@ -45,20 +38,20 @@ const Index = () => {
         fetchData();
     }, []);
 
-    if (loading) {
-        return (
-            <div className="mt-4" style={{ backgroundColor: 'white' }}>
-                <div className="text-center">
-                    <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                    </Spinner>
-                </div>
-            </div>
-        );
-    }
+  
 
     return (
         <MDBContainer fluid className='background-radial-gradient overflow-hidden container-full-height'>
+        <div className="mt-4">
+            {loading ? (
+            <div className="text-center">
+                <Spinner animation="border" role="status" variant="light">
+                <span className="visually-hidden" style={{backgroundColor:"black", color:"white"}}>Loading...</span>
+                </Spinner>
+            </div>
+            ) : (
+            <>
+
             {error && (
                 <Alert variant="danger">
                     {error}
@@ -73,12 +66,14 @@ const Index = () => {
                     <AllShops shops={shops} /> 
                 </MDBCol>
                 </MDBRow>
-            )}
-                  
-
+            )}     
+        </>
+        )}
+        </div>
         </MDBContainer>
         
     );
+    
 };
 
 export default Index;

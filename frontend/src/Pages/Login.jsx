@@ -1,6 +1,7 @@
 //import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Spinner } from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import {
   MDBContainer,
@@ -9,7 +10,6 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBSpinner,
 } 
 from 'mdb-react-ui-kit';
 
@@ -65,24 +65,18 @@ const Login = () => {
       });
   }
 
-  if (!isLoaded) {
-    // Si la página aún no ha cargado, mostrar el spinner
-    return (
-      <div className="mt-4" style={{ backgroundColor: 'white' }}>
-        <div className="text-center">
-          <MDBSpinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </MDBSpinner>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <MDBContainer fluid className='background-radial-gradient overflow-hidden container-full-height'>
-
+    <MDBContainer fluid className='p-4 background-radial-gradient overflow-hidden container-full-height'>
+          <div className="mt-4">
+            {!isLoaded ? (
+            <div className="text-center">
+                <Spinner animation="border" role="status" variant="light">
+                <span className="visually-hidden" style={{backgroundColor:"black", color:"white"}}>Loading...</span>
+                </Spinner>
+            </div>
+            ) : (
+            <>
       <MDBRow>
-
         <MDBCol md='6' className='text-center text-md-start d-flex flex-column justify-content-center'>
 
           <h1 className="my-5 display-3 fw-bold ls-tight px-3" style={{color: 'hsl(0, 0.00%, 100.00%)'}}>
@@ -130,7 +124,9 @@ const Login = () => {
         </MDBCol>
 
       </MDBRow>
-
+      </>
+      )}   
+      </div>
     </MDBContainer>
   );
 };
