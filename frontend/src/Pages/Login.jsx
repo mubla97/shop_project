@@ -93,34 +93,67 @@ const Login = () => {
         <MDBCol md='6' className='position-relative'>
         <div id="radius-shape-1" className="position-absolute rounded-circle shadow-5-strong"></div>
         <div id="radius-shape-2" className="position-absolute rounded-circle shadow-5-strong"></div>
-          <MDBCard className='my-5'>
-            <MDBCardBody className='p-5'>
+       
+        <MDBCard className='my-5  bg-glass position-relative'>
+          {/* Fondo desenfocado */}
+          <div
+            style={{
+              position: 'absolute', 
+              top: 0, 
+              left: 0, 
+              right: 0, 
+              bottom: 0, 
+              backgroundColor: 'black', // Fondo negro o cualquier color o imagen que desees
+              filter: 'blur(10px)', // Efecto de desenfoque
+              zIndex: -1, // Asegura que el fondo quede detrás del contenido
+            }}
+          ></div>
 
-              <MDBInput wrapperClass='mb-4' label='Email' id='form1' type='email' placeholder="email@email.com" labelClass="text-white" value={email} onChange={e => setEmail(e.target.value)} required/>
-              <MDBInput wrapperClass='mb-4' label='Password' id='form1' type='password' placeholder="your password..." labelClass="text-white" value={password} onChange={e => setPassword(e.target.value)} required/>
+          {/* Contenido de la tarjeta que NO se desenfoca */}
+          <MDBCardBody className='p-5 position-relative'>
+            <MDBInput
+              wrapperClass='mb-4'
+              label='Email'
+              id='form1'
+              type='email'
+              placeholder="email@email.com"
+              labelClass="text-white"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+            />
+            <MDBInput
+              wrapperClass='mb-4'
+              label='Password'
+              id='form1'
+              type='password'
+              placeholder="your password..."
+              labelClass="text-white"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+            />
 
-              <Button
-                className="w-100 mb-4 d-flex justify-content-center align-items-center"
-                size="md"
-                style={{
-                  height: '50px',
-                  padding: '0.5rem',
-                  position: 'relative',
-                  backgroundColor: '#007bff', // Azul personalizado
-                  borderColor: '#007bff', // Asegura que el borde sea del mismo color
-                  color: '#fff', // Color del texto blanco
-                  borderRadius: '0.25rem', // Opcional: bordes redondeados
-                  fontWeight: 'bold'
-                }}
-                onClick={doLogin}
-                disabled={loading} // Deshabilitar el botón mientras se carga
-              >
+            <Button
+              className="w-100 mb-4 d-flex justify-content-center align-items-center"
+              size="md"
+              style={{
+                height: '50px',
+                padding: '0.5rem',
+                position: 'relative',
+                backgroundColor: '#007bff', // Azul personalizado
+                borderColor: '#007bff', // Asegura que el borde sea del mismo color
+                color: '#fff', // Color del texto blanco
+                borderRadius: '0.25rem', // Opcional: bordes redondeados
+                fontWeight: 'bold'
+              }}
+              onClick={doLogin}
+              disabled={loading} // Deshabilitar el botón mientras se carga
+            >
               <div className="w-100 d-flex justify-content-center align-items-center ">Sign up</div>
             </Button>
-
-            </MDBCardBody>
-          </MDBCard>
-
+          </MDBCardBody>
+        </MDBCard>
         </MDBCol>
 
       </MDBRow>

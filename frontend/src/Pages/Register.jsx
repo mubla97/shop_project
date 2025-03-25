@@ -115,53 +115,133 @@ const Register = () => {
                 <div id="radius-shape-1" className="position-absolute rounded-circle shadow-5-strong"></div>
                 <div id="radius-shape-2" className="position-absolute rounded-circle shadow-5-strong"></div>
 
-                <MDBCard className='my-5 bg-glass'>
-                  <MDBCardBody className='p-5'>
-                    <MDBRow>
-                      <MDBCol col='6'>
-                        <MDBInput wrapperClass='mb-4' label='First name' id='name' type='text' placeholder="Your first name..." labelClass="text-white" onChange={(e) => setName(e.target.value)} />
-                      </MDBCol>
+                <MDBCard className='my-5 bg-glass position-relative'>
+                {/* Fondo desenfocado */}
+                <div
+                  style={{
+                    position: 'absolute', 
+                    top: 0, 
+                    left: 0, 
+                    right: 0, 
+                    bottom: 0, 
+                    backgroundColor: 'black', // Fondo negro o cualquier color o imagen que desees
+                    filter: 'blur(10px)', // Efecto de desenfoque
+                    zIndex: -1, // Asegura que el fondo quede detrás del contenido
+                  }}
+                ></div>
 
-                      <MDBCol col='6'>
-                        <MDBInput wrapperClass='mb-4' label='Last name' id='lastname' type='text' placeholder="Your last name..." labelClass="text-white" onChange={(e) => setLastname(e.target.value)} />
-                      </MDBCol>
-                    </MDBRow>
-                    <MDBRow>
-                      <MDBCol col='6'>
-                        <MDBInput wrapperClass='mb-4' label='Username' id='username' type='text' placeholder="Your username..." labelClass="text-white" onChange={(e) => setUsername(e.target.value)} />
-                      </MDBCol>
+                {/* Contenido de la tarjeta que NO se desenfoca */}
+                <MDBCardBody className='p-5 position-relative'>
+                <MDBRow>
+                  <MDBCol col='6'>
+                    <div className="form-group mb-4" style={{ display: 'block', textAlign: 'left' }}>
+                      <label htmlFor="name" className="text-white" style={{ display: 'block', marginBottom: '8px' }}>First name</label>
+                      <input
+                        id="name"
+                        type="text"
+                        placeholder="Your first name..."
+                        className="form-control"
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                    </div>
+                  </MDBCol>
 
-                      <MDBCol col='6'>
-                        <MDBInput wrapperClass='mb-4' label='Phone' id='phone' type='number' placeholder="Your phone..." labelClass="text-white" onChange={(e) => setPhone(e.target.value)} />
-                      </MDBCol>
-                    </MDBRow>
+                  <MDBCol col='6'>
+                    <div className="form-group mb-4" style={{ display: 'block', textAlign: 'left' }}>
+                      <label htmlFor="lastname" className="text-white" style={{ display: 'block', marginBottom: '8px' }}>Last name</label>
+                      <input
+                        id="lastname"
+                        type="text"
+                        placeholder="Your last name..."
+                        className="form-control"
+                        onChange={(e) => setLastname(e.target.value)}
+                      />
+                    </div>
+                  </MDBCol>
+                </MDBRow>
 
-                    <MDBInput wrapperClass='mb-4' label='Email' id='email' type='email' placeholder="Your email..." labelClass="text-white" onChange={(e) => setEmail(e.target.value)} />
-                    <MDBInput wrapperClass='mb-4' label='Password' id='password' type='password' placeholder="Your password..." labelClass="text-white" onChange={(e) => setPassword(e.target.value)} />
-                    <MDBInput wrapperClass='mb-4' label='Repite Password' id='password_confirmation' type='password' placeholder="Repite your password..." labelClass="text-white" onChange={(e) => setPassword_confirmation(e.target.value)} />
+                <MDBRow>
+                  <MDBCol col='6'>
+                    <div className="form-group mb-4" style={{ display: 'block', textAlign: 'left' }}>
+                      <label htmlFor="username" className="text-white" style={{ display: 'block', marginBottom: '8px' }}>Username</label>
+                      <input
+                        id="username"
+                        type="text"
+                        placeholder="Your username..."
+                        className="form-control"
+                        onChange={(e) => setUsername(e.target.value)}
+                      />
+                    </div>
+                  </MDBCol>
 
-                    <Button
-                      className="w-100 mb-4 d-flex justify-content-center align-items-center"
-                      size="md"
-                      style={{
-                        height: '50px',
-                        padding: '0.5rem',
-                        position: 'relative',
-                        backgroundColor: '#007bff', // Azul personalizado
-                        borderColor: '#007bff', // Asegura que el borde sea del mismo color
-                        color: '#fff', // Color del texto blanco
-                        borderRadius: '0.25rem', // Opcional: bordes redondeados
-                        fontWeight: 'bold'
-                      }}
-                      onClick={doRegister}
-                      disabled={loading} // Deshabilitar el botón mientras se carga
-                    >
-                    <div className="w-100 d-flex justify-content-center align-items-center ">Sign up</div>
-                  </Button>
+                  <MDBCol col='6'>
+                    <div className="form-group mb-4" style={{ display: 'block', textAlign: 'left' }}>
+                      <label htmlFor="phone" className="text-white" style={{ display: 'block', marginBottom: '8px' }}>Phone</label>
+                      <input
+                        id="phone"
+                        type="number"
+                        placeholder="Your phone..."
+                        className="form-control"
+                        onChange={(e) => setPhone(e.target.value)}
+                      />
+                    </div>
+                  </MDBCol>
+                </MDBRow>
 
+                <div className="form-group mb-4" style={{ display: 'block', textAlign: 'left' }}>
+                  <label htmlFor="email" className="text-white" style={{ display: 'block', marginBottom: '8px' }}>Email</label>
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="Your email..."
+                    className="form-control"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
 
-                  </MDBCardBody>
-                </MDBCard>
+                <div className="form-group mb-4" style={{ display: 'block', textAlign: 'left' }}>
+                  <label htmlFor="password" className="text-white" style={{ display: 'block', marginBottom: '8px' }}>Password</label>
+                  <input
+                    id="password"
+                    type="password"
+                    placeholder="Your password..."
+                    className="form-control"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+
+                <div className="form-group mb-4" style={{ display: 'block', textAlign: 'left' }}>
+                  <label htmlFor="password_confirmation" className="text-white" style={{ display: 'block', marginBottom: '8px' }}>Repite Password</label>
+                  <input
+                    id="password_confirmation"
+                    type="password"
+                    placeholder="Repite your password..."
+                    className="form-control"
+                    onChange={(e) => setPassword_confirmation(e.target.value)}
+                  />
+                </div>
+
+                <Button
+                  className="w-100 mb-4 d-flex justify-content-center align-items-center"
+                  size="md"
+                  style={{
+                    height: '50px',
+                    padding: '0.5rem',
+                    position: 'relative',
+                    backgroundColor: '#007bff', // Azul personalizado
+                    borderColor: '#007bff', // Asegura que el borde sea del mismo color
+                    color: '#fff', // Color del texto blanco
+                    borderRadius: '0.25rem', // Opcional: bordes redondeados
+                    fontWeight: 'bold'
+                  }}
+                  onClick={doRegister}
+                  disabled={loading} // Deshabilitar el botón mientras se carga
+                >
+                  <div className="w-100 d-flex justify-content-center align-items-center ">Sign up</div>
+                </Button>
+              </MDBCardBody>
+              </MDBCard>
+
 
               </MDBCol>
 
